@@ -60,6 +60,43 @@ body{padding-bottom:88px!important}
 .account-history{margin-top:14px;padding:13px;background:#0b1425;border:1px solid var(--line);border-radius:11px}
 .account-history-item{padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.account-history-item:last-child{border-bottom:0}
 @media(max-width:480px){.account-modal{padding:15px}.account-grid{gap:8px}.account-action{padding:10px}}
+/* Dedicated premium account history pages */
+#historyPage{display:none;position:fixed;inset:0;z-index:10020;overflow:auto;background:radial-gradient(ellipse at 50% 0%,#1b3152 0%,#0a1020 48%,#060b15 100%);padding:20px 14px calc(28px + env(safe-area-inset-bottom))}
+#historyPage.show{display:block}
+.history-shell{width:min(900px,100%);min-height:calc(100vh - 48px);margin:0 auto;border:1px solid #30415f;border-radius:22px;background:linear-gradient(160deg,#121f34ee,#0b1425f5);box-shadow:0 24px 80px #0008;padding:20px}
+.history-top{display:flex;align-items:center;gap:13px;border-bottom:1px solid #293954;padding-bottom:16px;margin-bottom:18px}
+.history-back{background:#263754;color:#eaf1ff;border:1px solid #3b5072;padding:10px 14px}
+.history-heading{flex:1}.history-heading h1{font-size:22px;margin:0}.history-heading p{margin:3px 0 0;color:#94a7c4;font-size:12px}
+.history-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.history-stat{background:#0b1527;border:1px solid #263854;border-radius:13px;padding:13px}.history-stat span{display:block;color:#91a3c0;font-size:11px}.history-stat b{display:block;font-size:18px;margin-top:4px}
+.history-list{background:#0a1323;border:1px solid #263650;border-radius:14px;padding:14px}.history-list .account-history-item{padding:14px 4px;font-size:13px;line-height:1.8}
+.history-empty{text-align:center;padding:38px 12px;color:#9aabc5}.history-empty strong{display:block;color:#e8efff;font-size:15px;margin-bottom:6px}
+@media(max-width:560px){#historyPage{padding:0}.history-shell{min-height:100vh;border:0;border-radius:0;padding:15px 12px 30px}.history-summary{gap:7px}.history-stat{padding:10px}.history-stat b{font-size:15px}.history-heading h1{font-size:18px}}
+
+
+
+/* Premium deposit / withdrawal success page */
+#transactionSuccessPage{display:none;position:fixed;inset:0;z-index:99999;overflow:auto;background:radial-gradient(ellipse at 50% 0%,#1d3155 0%,#0a1020 52%,#060b15 100%);padding:24px 16px;align-items:center;justify-content:center}
+#transactionSuccessPage.show{display:flex}
+.success-shell{width:min(520px,100%);margin:auto;border:1px solid rgba(148,178,230,.22);border-radius:26px;background:linear-gradient(155deg,rgba(24,39,65,.97),rgba(10,17,31,.98));box-shadow:0 28px 100px #0009,0 0 50px rgba(70,125,255,.10);padding:30px;position:relative;overflow:hidden}
+.success-shell:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#36d6ad,#6d91ff,#b28aff)}
+.success-brand{display:flex;align-items:center;justify-content:center;gap:9px;color:#cbd8f3;font-weight:850;letter-spacing:2px;font-size:12px}
+.success-brand-mark{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,#6488ff,#a16aff);color:white;font-size:15px}
+.success-icon{width:76px;height:76px;border-radius:50%;margin:28px auto 17px;display:grid;place-items:center;font-size:38px;color:#65e5bd;background:radial-gradient(circle,#174d45,#102e31);border:1px solid rgba(101,229,189,.45);box-shadow:0 0 35px rgba(32,201,151,.16)}
+.success-title{text-align:center;font-size:clamp(24px,6vw,32px);line-height:1.15;font-weight:950;letter-spacing:1.1px;margin:0;color:#f5f8ff}
+.success-subtitle{text-align:center;color:#9eacc7;margin:10px 0 25px;font-size:13px}
+.success-status{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 22px;padding:9px 15px;width:max-content;max-width:100%;border:1px solid #80662e;background:#302817;color:#f5d58b;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:1.2px}
+.success-status-dot{width:7px;height:7px;border-radius:50%;background:#f4c96b;box-shadow:0 0 10px #f4c96b}
+.success-details{border:1px solid rgba(143,166,207,.18);background:rgba(5,11,22,.42);border-radius:16px;padding:5px 17px}
+.success-detail-row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid rgba(143,166,207,.13);font-size:12px}
+.success-detail-row:last-child{border-bottom:0}
+.success-detail-label{color:#91a2c1;flex:0 0 38%}
+.success-detail-value{color:#edf3ff;text-align:right;font-weight:750;overflow-wrap:anywhere;max-width:62%;font-variant-numeric:tabular-nums}
+.success-detail-value.amount{font-size:17px;color:#68e3bd}
+.success-note{text-align:center;color:#91a2bd;font-size:11px;line-height:1.7;margin:18px 4px 20px}
+.success-home{width:100%;padding:14px 18px;border-radius:12px;background:linear-gradient(100deg,#5279f5,#8769e9);color:#fff;font-weight:900;letter-spacing:.4px;box-shadow:0 9px 25px rgba(75,105,220,.22)}
+.success-order{font-size:10px;color:#7789a9;text-align:center;margin-top:13px;overflow-wrap:anywhere}
+@media(max-width:480px){#transactionSuccessPage{padding:14px}.success-shell{padding:24px 18px;border-radius:21px}.success-detail-row{font-size:11px}.success-details{padding:4px 12px}}
 
 </style>
 </head>
@@ -70,7 +107,7 @@ body{padding-bottom:88px!important}
  <div class="right"><span id="userBadge" class="muted small hidden"></span><button id="settingsButton" class="settings-btn hidden" aria-label="Account settings" title="Account settings" onclick="openSettings()">⚙</button><button id="authButton" class="btn-blue" onclick="openAuth('login')">Login / Register</button><button id="logoutButton" class="btn-quiet hidden" onclick="logout()">Log out</button></div>
 </header>
 <main class="wrap" id="home">
- <div class="notice"><strong>Treasury সেবার প্রতিশ্রুতি:</strong> স্বচ্ছ তথ্য, ব্যবহারকারীর নিরাপত্তা এবং সহায়ক কাস্টমার সাপোর্ট—এই তিনটি বিষয়কে আমরা গুরুত্ব দিই। যেকোনো লেনদেনের আগে ঠিকানা ও পরিমাণ ভালোভাবে যাচাই করুন।</div>
+ <div class="notice"><strong>Treasury Service Commitment:</strong> We value transparent information, user security, and helpful customer support. Verify the address and amount carefully before every transaction.</div>
  <div class="heading"><div><h1>Dashboard</h1><div class="muted">Your market overview at a glance</div></div><span class="pill">MARKET DATA</span></div>
  <section class="grid4">
   <div class="card"><div class="metric-label">Total Account Balance</div><div class="metric" id="topBalance">0.00 <span class="muted" style="font-size:13px">USDT</span></div><div class="muted small">USDT + coin holdings value</div></div>
@@ -104,10 +141,10 @@ body{padding-bottom:88px!important}
     <div class="footnote">Live quotes are indicative only. This chart is illustrative, not historical exchange data.</div>
    </section>
    <section class="card" id="profitChart" style="margin-bottom:18px">
-    <div class="section-head"><div><h2>Profit / Loss Chart</h2><div class="muted small">Buy/Sell বা USDT থেকে coin conversion সফল হলে ট্রেডের হিসাব এখানে স্বয়ংক্রিয়ভাবে দেখাবে</div></div><button class="btn-quiet small" type="button" onclick="exportTradeHistory()">Export history</button></div>
+    <div class="section-head"><div><h2>Profit / Loss Chart</h2><div class="muted small">Trade details will appear here automatically after a successful buy/sell or USDT-to-coin conversion.</div></div><button class="btn-quiet small" type="button" onclick="exportTradeHistory()">Export history</button></div>
     <div style="display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px"><div><div class="metric-label">Total Profit / Loss (USDT)</div><div class="metric" id="profitTotal">0.00 <span class="muted" style="font-size:13px">USDT</span></div></div><div class="muted small" id="profitCount">0 trades</div></div>
-    <div id="profitChartCanvas" style="height:190px;width:100%;overflow:hidden;border-radius:9px;background:linear-gradient(180deg,#152b31,transparent)"><svg viewBox="0 0 800 190" preserveAspectRatio="none" style="width:100%;height:100%"><text x="400" y="95" fill="#93a3bf" text-anchor="middle">সফল Buy/Sell করলে এখানে Profit/Loss দেখাবে</text></svg></div>
-    <div class="footnote">প্রতি ট্রেডের date/time, opening/current price, bond, stop earning/stop-loss, service/overnight charge ও converted quantity দেখানো হবে। ডিফল্ট নির্দেশক সীমা: Long/Buy-এ +5% লাভ ও −2% ক্ষতি; Sell-এ −5% লাভ ও +2% ক্ষতি। এগুলো শুধু হিসাবের জন্য দেখানো মূল্য—এক্সচেঞ্জে স্বয়ংক্রিয় Stop-Loss/Take-Profit অর্ডার নয়। এই ট্রেড হিসাব এই ব্রাউজারে সংরক্ষিত; অন্য ডিভাইসে sync হয় না। আগে থেকে থাকা coin-এর ক্রয়মূল্য এই চার্ট জানে না।</div>
+    <div id="profitChartCanvas" style="height:190px;width:100%;overflow:hidden;border-radius:9px;background:linear-gradient(180deg,#152b31,transparent)"><svg viewBox="0 0 800 190" preserveAspectRatio="none" style="width:100%;height:100%"><text x="400" y="95" fill="#93a3bf" text-anchor="middle">Profit and loss will appear here after a successful buy or sell.</text></svg></div>
+    <div class="footnote">Each trade displays its date/time, opening/current price, bond, stop-earning/stop-loss levels, service/overnight charges, and converted quantity. Default reference levels: +5% profit and −2% loss for Long/Buy; −5% profit and +2% loss for Sell. These are calculation references only, not automatic exchange Stop-Loss/Take-Profit orders. Trade records are stored in this browser and are not synced to other devices. This chart does not know the purchase price of coins held previously.</div>
     <div id="profitRecords" style="margin-top:14px"></div>
    </section>
    <section class="card" id="markets">
@@ -119,20 +156,20 @@ body{padding-bottom:88px!important}
   <aside>
    <section class="card" id="trade">
     <div class="section-head"><h2>Buy / Sell</h2></div>
-    <div class="tabs"><button id="buyTab" class="active" onclick="setSide('Buy')">Buy</button><button id="sellTab" onclick="setSide('Sell')">Sell</button></div><div id="availableAmount" class="available-line">Available amount: Login করুন</div>
+    <div class="tabs"><button id="buyTab" class="active" onclick="setSide('Buy')">Buy</button><button id="sellTab" onclick="setSide('Sell')">Sell</button></div><div id="availableAmount" class="available-line">Available amount: Log in</div>
     <div class="field"><label for="tradeCoin">Coin</label><select id="tradeCoin" onchange="setCoin(this.value)" style="width:100%;padding:12px;background:#0a1222;border:1px solid var(--line);border-radius:9px;color:white"><option value="bitcoin">Bitcoin (BTC)</option></select></div>
-    <div class="field"><label for="tradeAmount">Amount <span id="tradeSymbol">BTC</span></label><div class="amount-wrap"><input id="tradeAmount" type="number" min="0" step="any" placeholder="0.00"><button type="button" id="tradeMaxButton" class="max-btn" onclick="setMaxTradeAmount()">MAX</button></div><small style="display:block;margin-top:6px;color:var(--muted)">Buy হলে USDT থেকে কয়েন convert হবে; Sell হলে কয়েন থেকে USDT হবে</small></div>
+    <div class="field"><label for="tradeAmount">Amount <span id="tradeSymbol">BTC</span></label><div class="amount-wrap"><input id="tradeAmount" type="number" min="0" step="any" placeholder="0.00"><button type="button" id="tradeMaxButton" class="max-btn" onclick="setMaxTradeAmount()">MAX</button></div><small style="display:block;margin-top:6px;color:var(--muted)">Buy converts USDT to coins; Sell converts coins to USDT.</small></div>
     <div class="field"><label>Estimated total <span>USD</span></label><input id="tradeTotal" readonly placeholder="0.00"></div>
     <button id="tradeOrderButton" class="btn-blue wide" disabled onclick="previewTrade()">Order</button>
-    <div id="tradeMsg" class="footnote">আপনার নির্বাচিত কয়েন ও পরিমাণ নিয়ে কাস্টমার সাপোর্টে যোগাযোগ করুন।</div><div class="footnote">স্বচ্ছ যোগাযোগ, লেনদেনের আগে মূল্য ও নেটওয়ার্ক যাচাই, এবং আপনার অ্যাকাউন্টের তথ্যের গোপনীয়তা—আমাদের অগ্রাধিকার। পাসওয়ার্ড, OTP বা private key কখনো শেয়ার করবেন না।</div>
+    <div id="tradeMsg" class="footnote">Contact customer support with your selected coin and amount.</div><div class="footnote">We prioritize transparent communication, price and network verification before transactions, and account privacy. Never share your password, OTP, or private key.</div>
    </section>
    <section class="card" id="wallet" style="margin-top:18px">
     <div class="section-head"><h2>Wallet</h2><span class="muted small">USDT</span></div>
     <div class="metric-label">Total account balance (USDT value)</div><div class="balance" id="walletBalance">0.00 <span class="muted" style="font-size:14px">USDT</span></div><div class="footnote" id="coinHoldings">Coin holdings: —</div>
     <div class="actions-grid" style="margin-top:17px"><button class="btn-green" onclick="openSupport('deposit')">Deposit</button><button class="btn-red" onclick="openSupport('withdraw')">Withdraw</button></div>
-    <div class="footnote">আপনার অ্যাকাউন্টের নিরাপত্তা আমাদের কাছে গুরুত্বপূর্ণ। ডিপোজিট বা উত্তোলনের আগে ঠিকানা ও পরিমাণ যাচাই করুন এবং প্রয়োজনে কাস্টমার সাপোর্টের সহায়তা নিন।</div>
+    <div class="footnote">Your account security is important. Verify the address and amount before depositing or withdrawing, and contact customer support if needed.</div>
    </section>
-   <section class="card" style="margin-top:18px"><div class="section-head"><h2>Account Security</h2></div><p class="muted small">আপনার অ্যাকাউন্ট সুরক্ষিত রাখতে শক্তিশালী ও আলাদা পাসওয়ার্ড ব্যবহার করুন। কোনো অবস্থাতেই পাসওয়ার্ড, OTP বা private key অন্যের সঙ্গে শেয়ার করবেন না।</p><button class="btn-quiet wide" onclick="openAuth('register')">Create account</button></section>
+   <section class="card" style="margin-top:18px"><div class="section-head"><h2>Account Security</h2></div><p class="muted small">Use a strong, unique password to keep your account secure. Never share your password, OTP, or private key with anyone.</p><button class="btn-quiet wide" onclick="openAuth('register')">Create account</button></section>
   </aside>
  </div>
 </main>
@@ -165,26 +202,26 @@ body{padding-bottom:88px!important}
 <div class="overlay" id="authOverlay" onclick="if(event.target===this)closeAuth()">
  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
   <div class="modal-top"><h2 id="authTitle">Welcome back</h2><button class="x" onclick="closeAuth()">✕</button></div>
-  <div class="muted small">আপনার অ্যাকাউন্ট সুরক্ষিত রাখতে শক্তিশালী ও আলাদা পাসওয়ার্ড ব্যবহার করুন।</div>
+  <div class="muted small">Use a strong, unique password to keep your account secure.</div>
   <div class="switch"><button id="loginMode" class="active" onclick="setAuthMode('login')">Login</button><button id="registerMode" onclick="setAuthMode('register')">Register</button></div>
   <form id="authForm">
    <div class="field"><label>Mobile number</label><div style="display:flex;gap:8px"><select id="countryCode" aria-label="Country code" style="width:115px;padding:12px;background:#0a1222;border:1px solid var(--line);border-radius:9px;color:white"><option value="+880">🇧🇩 +880</option><option value="+91">🇮🇳 +91</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+971">🇦🇪 +971</option><option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option></select><input id="phone" type="tel" autocomplete="tel" placeholder="Mobile number" required minlength="5" style="flex:1;min-width:0"></div></div>
    <div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Enter password" required minlength="6"></div>
    <button id="authSubmit" class="btn-blue wide" type="submit">Login</button><div id="authMsg" class="msg"></div><button id="authForgotButton" type="button" onclick="openForgotPasswordFromAuth()" style="display:block;margin:7px auto 0;padding:4px 8px;background:transparent;color:var(--muted);font-size:12px;text-decoration:underline">Forgot password?</button>
   </form>
-  <div class="footnote">আপনার আস্থা ও নিরাপত্তা আমাদের কাছে গুরুত্বপূর্ণ। শক্তিশালী ও আলাদা পাসওয়ার্ড ব্যবহার করুন; OTP, পাসওয়ার্ড বা private key কারও সঙ্গে শেয়ার করবেন না। লেনদেনের আগে সব তথ্য যাচাই করুন।</div>
+  <div class="footnote">Your trust and security matter to us. Use a strong, unique password. Never share your OTP, password, or private key. Verify all transaction details before proceeding.</div>
  </div>
 </div>
 <div class="overlay" id="supportOverlay" onclick="if(event.target===this)closeSupport()">
  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
-  <div class="modal-top"><h2 id="supportTitle">অনলাইন কাস্টমার সার্ভিস</h2><button class="x" onclick="closeSupport()">✕</button></div>
+  <div class="modal-top"><h2 id="supportTitle">Online Customer Support</h2><button class="x" onclick="closeSupport()">✕</button></div>
   <div id="supportStandard">
-   <p class="service-copy"><strong>অনলাইন কাস্টমার সার্ভিস7*24</strong>পেশাদার কাস্টমার সার্ভিস অনলাইনে, আপনার সমস্যা সমাধানের জন্য নিবেদিত</p>
-   <a id="contactTelegramLink" href="https://t.me/treasury_io" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">যোগাযোগ করুন</a>
+   <p class="service-copy"><strong>Online Customer Support7*24</strong>Professional online customer support, dedicated to resolving your issues.</p>
+   <a id="contactTelegramLink" href="https://t.me/treasury_io" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">Contact Us</a>
   </div>
   <div id="depositPanel" class="hidden">
    <div id="depositAmountStep">
-    <p class="service-copy">ডিপোজিটের পরিমাণ নির্বাচন করুন</p>
+    <p class="service-copy">Select your deposit amount</p>
     <div class="field"><label for="depositAmount">Deposit amount (USDT)</label><input id="depositAmount" type="number" min="100" step="any" placeholder="Minimum 100 USDT"></div>
     <p class="footnote">Minimum deposit 100 USDT</p>
     <button id="depositNextButton" class="btn-blue wide" type="button" disabled onclick="showDepositPayment()">Next</button>
@@ -198,18 +235,18 @@ body{padding-bottom:88px!important}
     <div class="field"><label for="depositTxHash">Transaction Hash</label><input id="depositTxHash" type="text" placeholder="Enter transaction hash" autocomplete="off"></div>
     <button id="depositCompleteButton" class="btn-green wide" type="button" disabled onclick="completeDeposit()">Deposit Complete</button>
     <div id="depositPaymentMsg" class="msg"></div>
-    <p class="footnote">শুধুমাত্র TRC20 নেটওয়ার্কে USDT পাঠান। ভুল নেটওয়ার্কে পাঠালে সম্পদ হারাতে পারেন। Transaction hash জমা দিলে server-side যাচাই হবে।</p>
+    <p class="footnote">Send USDT only over the TRC20 network. Sending funds over the wrong network may result in permanent loss. Your transaction hash will be checked by the server.</p>
    </div>
   </div>
   <form id="withdrawForm" class="hidden">
-   <p class="muted">Withdrawal address ও amount লিখুন। Confirm করার আগে ঠিকানা ও পরিমাণ যাচাই করুন।</p>
+   <p class="muted">Enter your withdrawal address and amount. Verify both before confirming.</p>
    <div class="available-line" id="withdrawAvailable">Available USDT: 0.00 USDT</div>
-   <div class="field"><label for="withdrawAddress">Withdrawal address</label><input id="withdrawAddress" type="text" placeholder="TRC20 address লিখুন" autocomplete="off" required></div>
-   <div class="field"><label for="withdrawAmount">Amount (USDT)</label><div class="amount-wrap"><input id="withdrawAmount" type="number" min="0.000001" step="any" placeholder="Amount লিখুন" required><button type="button" id="withdrawMaxButton" class="max-btn" onclick="setWithdrawMax()">MAX</button></div></div>
+   <div class="field"><label for="withdrawAddress">Withdrawal address</label><input id="withdrawAddress" type="text" placeholder="Enter TRC20 address" autocomplete="off" required></div>
+   <div class="field"><label for="withdrawAmount">Amount (USDT)</label><div class="amount-wrap"><input id="withdrawAmount" type="number" min="0.000001" step="any" placeholder="Enter amount" required><button type="button" id="withdrawMaxButton" class="max-btn" onclick="setWithdrawMax()">MAX</button></div></div>
    <button id="confirmWithdrawButton" class="btn-red wide" type="submit" disabled>Confirm Withdraw</button>
    <div id="withdrawMsg" class="msg" aria-live="polite"></div>
   </form>
-  <div class="footnote">আপনার নিরাপত্তা ও গোপনীয়তাকে গুরুত্ব দিন। পাসওয়ার্ড, OTP বা private key কারও সঙ্গে শেয়ার করবেন না।</div>
+  <div class="footnote">Your security and privacy matter. Never share your password, OTP, or private key.</div>
  </div>
 </div>
 <div class="overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
@@ -217,15 +254,15 @@ body{padding-bottom:88px!important}
   <div class="modal-top"><h2 id="settingsTitle">Account Settings</h2><button class="x" onclick="closeSettings()">✕</button></div>
   <p>Username: <strong id="settingsUsername">—</strong></p>
   <button class="btn-quiet wide" onclick="openForgotPassword()">Forgot password?</button>
-  <p class="footnote">পাসওয়ার্ড ভুলে গেলে কাস্টমার সার্ভিসে যোগাযোগ করুন। নিরাপত্তার জন্য এখানে পাসওয়ার্ড দেখানো হয় না।</p>
-  <a href="https://t.me/treasury_io" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">কাস্টমার সার্ভিসে যোগাযোগ করুন</a>
+  <p class="footnote">If you forgot your password, contact customer support. For your security, passwords are not displayed here.</p>
+  <a href="https://t.me/treasury_io" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">Contact Customer Support</a>
  </div>
 </div>
 <div class="overlay" id="forgotOverlay" onclick="if(event.target===this)closeForgotPassword()">
  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="forgotTitle">
   <div class="modal-top"><h2 id="forgotTitle">Password Recovery</h2><button class="x" onclick="closeForgotPassword()">✕</button></div>
-  <p class="service-copy">আপনার একাউন্টের পাসওয়ার্ড পরিবর্তন করতে কাস্টমার সার্ভিসে যোগাযোগ করুন</p>
-  <a href="https://t.me/treasury_io" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">Telegram খুলুন</a>
+  <p class="service-copy">Contact customer support to change your account password.</p>
+  <a href="https://t.me/treasury_io" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">Open Telegram</a>
  </div>
 </div>
 <div class="coin-detail-overlay" id="coinDetailOverlay" onclick="if(event.target===this)closeCoinDetail()"><div class="coin-detail-modal exchange-detail" role="dialog" aria-modal="true" aria-labelledby="coinDetailTitle">
@@ -241,18 +278,33 @@ body{padding-bottom:88px!important}
  </div></div>
 <div class="account-overlay" id="accountOverlay" onclick="if(event.target===this)closeAccountPanel()">
  <section class="account-modal" role="dialog" aria-modal="true" aria-labelledby="accountPanelTitle">
-  <div class="modal-top"><div><h2 id="accountPanelTitle">My Account</h2><div class="muted small">আপনার অ্যাকাউন্টের তথ্য ও সেবা</div></div><button class="x" onclick="closeAccountPanel()">✕</button></div>
+  <div class="modal-top"><div><h2 id="accountPanelTitle">My Account</h2><div class="muted small">Your account information and services</div></div><button class="x" onclick="closeAccountPanel()">✕</button></div>
   <div class="card" style="padding:13px;background:#0d1729"><div class="metric-label">Logged in account</div><strong id="accountPanelUsername">Login required</strong><div class="metric-label" style="margin-top:9px">Total balance</div><strong id="accountPanelBalance">0.00 USDT</strong></div>
   <div class="account-grid">
-   <button class="account-action" onclick="accountAction('deposit')"><span>⬇️</span><strong>Deposit</strong><small>অ্যাকাউন্টে USDT জমা</small></button>
-   <button class="account-action" onclick="accountAction('withdraw')"><span>⬆️</span><strong>Withdraw</strong><small>USDT উত্তোলন</small></button>
-   <button class="account-action" onclick="accountAction('password')"><span>🔐</span><strong>Account Password</strong><small>পাসওয়ার্ড পরিবর্তনের সহায়তা</small></button>
-   <button class="account-action" onclick="accountAction('deposit-history')"><span>📥</span><strong>Deposit History</strong><small>ডিপোজিটের রেকর্ড</small></button>
-   <button class="account-action" onclick="accountAction('withdraw-history')"><span>📤</span><strong>Withdraw History</strong><small>উত্তোলনের রেকর্ড</small></button>
-   <button class="account-action" onclick="accountAction('all-history')"><span>🧾</span><strong>All History</strong><small>Deposit, Withdraw ও Trade একসঙ্গে</small></button>
-   <button class="account-action" onclick="accountAction('trade-history')"><span>📊</span><strong>Trade History</strong><small>Buy ও Sell-এর রেকর্ড</small></button>
+   <button class="account-action" onclick="accountAction('deposit')"><span>⬇️</span><strong>Deposit</strong><small>Deposit USDT into your account</small></button>
+   <button class="account-action" onclick="accountAction('withdraw')"><span>⬆️</span><strong>Withdraw</strong><small>Withdraw USDT</small></button>
+   <button class="account-action" onclick="accountAction('password')"><span>🔐</span><strong>Account Password</strong><small>Password change assistance</small></button>
+   <button class="account-action" onclick="accountAction('deposit-history')"><span>📥</span><strong>Deposit History</strong><small>Deposit records</small></button>
+   <button class="account-action" onclick="accountAction('withdraw-history')"><span>📤</span><strong>Withdraw History</strong><small>Withdrawal records</small></button>
+   <button class="account-action" onclick="accountAction('all-history')"><span>🧾</span><strong>All History</strong><small>Deposit, withdrawal, and trade history</small></button>
+   <button class="account-action" onclick="accountAction('trade-history')"><span>📊</span><strong>Trade History</strong><small>Buy and sell records</small></button>
   </div>
   <div id="accountHistoryPanel" class="account-history hidden" aria-live="polite"></div>
+ </section>
+</div>
+<div id="historyPage" aria-hidden="true">
+ <section class="history-shell">
+  <header class="history-top">
+   <button class="history-back" type="button" onclick="closeHistoryPage()">← Back</button>
+   <div class="history-heading"><h1 id="historyPageTitle">Account History</h1><p>Secure transaction records · Treasury account</p></div>
+   <div style="font-size:24px;color:#67dfbd">▤</div>
+  </header>
+  <div class="history-summary">
+   <div class="history-stat"><span>Deposit Records</span><b id="historyDepositCount">—</b></div>
+   <div class="history-stat"><span>Withdraw Records</span><b id="historyWithdrawCount">—</b></div>
+   <div class="history-stat"><span>Current Balance</span><b id="historyCurrentBalance">—</b></div>
+  </div>
+  <div id="historyPageContent" class="history-list" aria-live="polite"><div class="loading">Loading secure account history…</div></div>
  </section>
 </div>
 <script>
@@ -282,11 +334,11 @@ function updatePortfolioDisplay(){
  document.getElementById('walletBalance').innerHTML=formatted+' <span class="muted" style="font-size:14px">USDT</span>';
  updateMarketHoldingLabels();
 }
-function updateAvailableAmount(){const el=document.getElementById('availableAmount');if(!currentUser){el.textContent='Available amount: Login করুন';return}if(side==='Buy'){el.textContent='Available amount: '+usdtBalance.toFixed(2)+' USDT'}else{el.textContent='Available amount: '+selectedCoinBalance().toFixed(8)+' '+selectedCoin[2]}}
+function updateAvailableAmount(){const el=document.getElementById('availableAmount');if(!currentUser){el.textContent='Available amount: Log in';return}if(side==='Buy'){el.textContent='Available amount: '+usdtBalance.toFixed(2)+' USDT'}else{el.textContent='Available amount: '+selectedCoinBalance().toFixed(8)+' '+selectedCoin[2]}}
 function setSide(s){side=s;document.getElementById('buyTab').classList.toggle('active',s==='Buy');document.getElementById('sellTab').classList.toggle('active',s==='Sell');updateAvailableAmount();calcTrade();}
 function setCoin(id){selectedCoin=coinList.find(c=>c[0]===id)||coinList[0];document.getElementById('tradeCoin').value=selectedCoin[0];document.getElementById('tradeSymbol').textContent=selectedCoin[2];updateAvailableAmount();calcTrade();}
-function setMaxTradeAmount(){const p=Number(prices[selectedCoin[0]]?.usd);let amount=0;if(!currentUser){document.getElementById('tradeMsg').textContent='MAX ব্যবহার করতে আগে Login করুন।';return}if(side==='Buy'){if(p>0)amount=usdtBalance/p}else amount=selectedCoinBalance();document.getElementById('tradeAmount').value=amount>0?amount.toFixed(8).replace(/\.?0+$/,''):'';calcTrade()}
-function calcTrade(){let amount=Number(document.getElementById('tradeAmount').value)||0;let p=prices[selectedCoin[0]]?.usd;let total=p&&amount>0?p*amount:0;document.getElementById('tradeTotal').value=total>0?total.toFixed(2):'';const orderButton=document.getElementById('tradeOrderButton');let enough=side==='Buy'?total<=usdtBalance+1e-8:amount<=selectedCoinBalance()+1e-10;orderButton.disabled=!(currentUser && total>0 && p>0 && enough);const msg=document.getElementById('tradeMsg');if(!currentUser){msg.textContent='Login করুন, তারপর আপনার balance দিয়ে convert করুন.'}else if(total>0&&!enough){msg.textContent=side==='Buy'?'আপনার USDT balance যথেষ্ট নয়। MAX চাপুন বা কম পরিমাণ লিখুন।':'আপনার '+selectedCoin[2]+' balance যথেষ্ট নয়। MAX চাপুন বা কম পরিমাণ লিখুন.'}else if(total>0){msg.textContent=side==='Buy'?'Estimated cost: '+total.toFixed(2)+' USDT. Order করলে USDT কেটে coin যোগ হবে.':'Estimated value: '+total.toFixed(2)+' USDT. Order করলে coin কেটে USDT যোগ হবে.'}else{msg.textContent='কয়েনের পরিমাণ লিখুন।'}updateAvailableAmount()}
+function setMaxTradeAmount(){const p=Number(prices[selectedCoin[0]]?.usd);let amount=0;if(!currentUser){document.getElementById('tradeMsg').textContent='Please log in before using MAX.';return}if(side==='Buy'){if(p>0)amount=usdtBalance/p}else amount=selectedCoinBalance();document.getElementById('tradeAmount').value=amount>0?amount.toFixed(8).replace(/\.?0+$/,''):'';calcTrade()}
+function calcTrade(){let amount=Number(document.getElementById('tradeAmount').value)||0;let p=prices[selectedCoin[0]]?.usd;let total=p&&amount>0?p*amount:0;document.getElementById('tradeTotal').value=total>0?total.toFixed(2):'';const orderButton=document.getElementById('tradeOrderButton');let enough=side==='Buy'?total<=usdtBalance+1e-8:amount<=selectedCoinBalance()+1e-10;orderButton.disabled=!(currentUser && total>0 && p>0 && enough);const msg=document.getElementById('tradeMsg');if(!currentUser){msg.textContent='Log in to convert using your balance.'}else if(total>0&&!enough){msg.textContent=side==='Buy'?'Your USDT balance is insufficient. Press MAX or enter a smaller amount.':'Your '+selectedCoin[2]+' balance is insufficient. Press MAX or enter a smaller amount.'}else if(total>0){msg.textContent=side==='Buy'?'Estimated cost: '+total.toFixed(2)+' USDT. Placing the order will deduct USDT and add coins.':'Estimated value: '+total.toFixed(2)+' USDT. Placing the order will deduct coins and add USDT.'}else{msg.textContent='Enter the coin amount.'}updateAvailableAmount()}
 document.getElementById('tradeAmount').addEventListener('input',calcTrade);
 async function loadMarkets(){
  const status=document.getElementById('marketStatus'), rows=document.getElementById('marketRows');
@@ -437,26 +489,35 @@ function historyRow(title, detail, status, date){
  return '<div class="account-history-item"><b>'+escapeTradeText(title)+'</b><br>'+detail+'<br><span class="pill">'+safeStatus+'</span> <span class="muted">'+escapeTradeText(date||'')+'</span></div>';
 }
 async function loadAccountHistory(kind){
- const box=document.getElementById('accountHistoryPanel');box.classList.remove('hidden');
- box.innerHTML='<strong>Account History</strong><p class="muted small">History লোড হচ্ছে…</p>';
- if(!supabaseClient){box.innerHTML='<strong>Account History</strong><p class="muted small">Supabase সংযোগ পাওয়া যায়নি।</p>';return}
+ if(!currentUser){closeAccountPanel();openAuth('login');return}
+ const page=document.getElementById('historyPage'),content=document.getElementById('historyPageContent');
+ const titles={'deposit-history':'Deposit History','withdraw-history':'Withdrawal History','all-history':'All Account History','trade-history':'Trade History'};
+ document.getElementById('historyPageTitle').textContent=titles[kind]||'Account History';
+ document.getElementById('historyDepositCount').textContent='—';
+ document.getElementById('historyWithdrawCount').textContent='—';
+ document.getElementById('historyCurrentBalance').textContent=(Number(usdtBalance)||0).toFixed(2)+' USDT';
+ content.innerHTML='<div class="loading">Loading secure account history…</div>';
+ closeAccountPanel();page.classList.add('show');page.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+ if(!supabaseClient){content.innerHTML='<div class="history-empty"><strong>Connection unavailable</strong>Please try again later.</div>';return}
  try{
   const [dep,wd]=await Promise.all([
    supabaseClient.from('deposit_requests').select('amount,tx_hash,status,created_at').order('created_at',{ascending:false}).limit(100),
    supabaseClient.from('withdrawal_requests').select('amount_usdt,destination_address,status,admin_note,created_at,updated_at').order('created_at',{ascending:false}).limit(100)
   ]);
-  if(dep.error && !/does not exist|schema cache/i.test(dep.error.message)) throw dep.error;
-  if(wd.error && !/does not exist|schema cache/i.test(wd.error.message)) throw wd.error;
-  const deposits=dep.data||[], withdrawals=wd.data||[], trades=(typeof getTradeLog==='function'?getTradeLog():[]);
+  if(dep.error)throw dep.error;if(wd.error)throw wd.error;
+  const deposits=dep.data||[],withdrawals=wd.data||[],trades=(typeof getTradeLog==='function'?getTradeLog():[]);
+  document.getElementById('historyDepositCount').textContent=String(deposits.length);
+  document.getElementById('historyWithdrawCount').textContent=String(withdrawals.length);
+  document.getElementById('historyCurrentBalance').textContent=(Number(usdtBalance)||0).toFixed(2)+' USDT';
   const items=[];
-  if(kind==='all-history'||kind==='deposit-history') deposits.forEach(r=>items.push({t:new Date(r.created_at).getTime()||0,h:historyRow('Deposit · '+fmtTradeNum(r.amount,4)+' USDT','TX: '+escapeTradeText((r.tx_hash||'').slice(0,18))+'…',r.status,new Date(r.created_at).toLocaleString())}));
-  if(kind==='all-history'||kind==='withdraw-history') withdrawals.forEach(r=>items.push({t:new Date(r.created_at).getTime()||0,h:historyRow('Withdraw · '+fmtTradeNum(r.amount_usdt,4)+' USDT','To: '+escapeTradeText((r.destination_address||'').slice(0,14))+'…'+(r.admin_note?' · '+escapeTradeText(r.admin_note):''),r.status,new Date(r.created_at).toLocaleString())}));
-  if(kind==='all-history'||kind==='trade-history') trades.forEach(r=>items.push({t:new Date(r.createdAt).getTime()||0,h:historyRow(escapeTradeText(r.side)+' '+escapeTradeText(r.symbol),fmtTradeNum(r.quantity)+' '+escapeTradeText(r.symbol)+' · '+fmtTradeNum(r.bond,4)+' USDT','Completed',new Date(r.createdAt).toLocaleString())}));
+  if(kind==='all-history'||kind==='deposit-history')deposits.forEach(r=>items.push({t:new Date(r.created_at).getTime()||0,h:historyRow('Deposit · '+fmtTradeNum(r.amount,4)+' USDT','Transaction Hash: '+escapeTradeText((r.tx_hash||'').slice(0,22))+(r.tx_hash&&r.tx_hash.length>22?'…':''),r.status,new Date(r.created_at).toLocaleString())}));
+  if(kind==='all-history'||kind==='withdraw-history')withdrawals.forEach(r=>items.push({t:new Date(r.created_at).getTime()||0,h:historyRow('Withdrawal · '+fmtTradeNum(r.amount_usdt,4)+' USDT','Destination: '+escapeTradeText((r.destination_address||'').slice(0,20))+(r.destination_address&&r.destination_address.length>20?'…':'')+(r.admin_note?' · Note: '+escapeTradeText(r.admin_note):''),r.status,new Date(r.created_at).toLocaleString())}));
+  if(kind==='all-history'||kind==='trade-history')trades.forEach(r=>items.push({t:new Date(r.createdAt).getTime()||0,h:historyRow(escapeTradeText(r.side)+' '+escapeTradeText(r.symbol),fmtTradeNum(r.quantity)+' '+escapeTradeText(r.symbol)+' · '+fmtTradeNum(r.bond,4)+' USDT','Completed',new Date(r.createdAt).toLocaleString())}));
   items.sort((a,b)=>b.t-a.t);
-  const title=kind==='deposit-history'?'Deposit History':kind==='withdraw-history'?'Withdraw History':kind==='trade-history'?'Trade History':'All Account History';
-  box.innerHTML='<strong>'+title+'</strong>'+(items.length?items.map(x=>x.h).join(''):'<p class="muted small">এখনও কোনো রেকর্ড পাওয়া যায়নি।</p>');
- }catch(e){box.innerHTML='<strong>Account History</strong><p class="muted small">History লোড করা যায়নি: '+escapeTradeText(e.message||'Unknown error')+'</p>'}
+  content.innerHTML=items.length?items.map(x=>x.h).join(''):'<div class="history-empty"><strong>No transactions yet</strong>Your completed and pending records will appear here.</div>';
+ }catch(e){content.innerHTML='<div class="history-empty"><strong>Unable to load history</strong>'+escapeTradeText(e.message||'Please try again later.')+'</div>'}
 }
+function closeHistoryPage(){const page=document.getElementById('historyPage');page.classList.remove('show');page.setAttribute('aria-hidden','true');document.body.style.overflow='';}
 function accountAction(action){
  if(!currentUser){closeAccountPanel();openAuth('login');return}
  if(action==='deposit'||action==='withdraw'){closeAccountPanel();openSupport(action);return}
@@ -464,7 +525,7 @@ function accountAction(action){
  loadAccountHistory(action);
 }
 
-function chooseCoin(id){setCoin(id);document.getElementById('trade').scrollIntoView({behavior:'smooth'});document.getElementById('tradeMsg').textContent=selectedCoin[1]+' নির্বাচন করা হয়েছে। পরিমাণ দিয়ে Order বাটনে ক্লিক করে কাস্টমার সাপোর্টে যোগাযোগ করুন।'}
+function chooseCoin(id){setCoin(id);document.getElementById('trade').scrollIntoView({behavior:'smooth'});document.getElementById('tradeMsg').textContent=selectedCoin[1]+' selected. Enter an amount and click Order to contact customer support.'}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function escAttr(s){return String(s).replace(/[^a-z0-9-]/gi,'')}
 function openAuth(mode){setAuthMode(mode);document.getElementById('authOverlay').classList.add('show')}
@@ -506,12 +567,12 @@ document.getElementById('authForm').addEventListener('submit', async e=>{
  const msg=document.getElementById('authMsg');
  msg.style.color='#ffc2cb';
  if(!isValidInternationalPhone(phone)){
-   msg.textContent='সঠিক country code-সহ সম্পূর্ণ মোবাইল নম্বর লিখুন, যেমন +8801XXXXXXXXX।';
+   msg.textContent='Enter your full mobile number with country code, for example +8801XXXXXXXXX.';
    return;
  }
- if(password.length<6){msg.textContent='পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।';return;}
+ if(password.length<6){msg.textContent='Password must be at least 6 characters long.';return;}
  if(!backendReady || !supabaseClient){
-   msg.textContent='Backend এখনো সংযুক্ত করা হয়নি। HTML-এর Supabase URL ও anon key বসিয়ে আবার চেষ্টা করুন।';
+   msg.textContent='Backend is not connected yet. Add your Supabase URL and anon key to the HTML, then try again.';
    return;
  }
  const submit=document.getElementById('authSubmit');
@@ -524,26 +585,23 @@ document.getElementById('authForm').addEventListener('submit', async e=>{
        currentUser=phone;
        msg.style.color='#70e3b6';
        msg.textContent='Account registered successfully.';
-       await notifyRegistrationOnce(data.user, phone);
+       await notifyTelegramEvent('registration',{phone});
        finishLogin();
      } else {
        msg.style.color='#70e3b6';
-       msg.textContent='রেজিস্ট্রেশন অনুরোধ গ্রহণ করা হয়েছে। Supabase-এ Confirm phone বন্ধ আছে কি না যাচাই করুন; চালু থাকলে OTP লাগতে পারে।';
+       msg.textContent='Registration request received. Check whether Confirm Phone is disabled in Supabase; if enabled, an OTP may be required.';
      }
    } else {
      const {data,error}=await supabaseClient.auth.signInWithPassword({phone,password});
      if(error) throw error;
      currentUser=data.user?.phone || phone;
-     // If phone confirmation prevented a session during sign-up, send the
-     // registration notice on the first successful login instead.
-     await notifyRegistrationOnce(data.user, currentUser);
      finishLogin();
    }
  } catch(err) {
    const raw=String(err?.message||'');
-   if(/already registered|already exists|duplicate|unique/i.test(raw)) msg.textContent='এই মোবাইল নম্বর দিয়ে ইতোমধ্যে অ্যাকাউন্ট খোলা হয়েছে। অনুগ্রহ করে Login করুন।';
-   else if(/invalid login credentials/i.test(raw)) msg.textContent='মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়।';
-   else msg.textContent='অনুরোধ সম্পন্ন হয়নি: '+raw+' (Supabase Phone Auth সেটিংস যাচাই করুন।)';
+   if(/already registered|already exists|duplicate|unique/i.test(raw)) msg.textContent='An account already exists with this mobile number. Please log in.';
+   else if(/invalid login credentials/i.test(raw)) msg.textContent='Incorrect mobile number or password.';
+   else msg.textContent='Request failed: '+raw+' (Check your Supabase Phone Auth settings.)';
  } finally {submit.disabled=false;}
 });
 if(backendReady){
@@ -555,17 +613,31 @@ if(backendReady){
  });
 }
 async function finishLogin(){document.getElementById('authButton').classList.add('hidden');document.getElementById('logoutButton').classList.remove('hidden');document.getElementById('settingsButton').classList.remove('hidden');document.getElementById('userBadge').classList.remove('hidden');document.getElementById('userBadge').textContent=currentUser;closeAuth();await refreshBalances();calcTrade();renderProfitChart()}
-async function refreshBalances(){
- if(!supabaseClient||!currentUser)return;
- const {data,error}=await supabaseClient.rpc('get_my_balance');
- if(error){console.error('Balance load failed',error);document.getElementById('tradeMsg').textContent='Balance load হয়নি: '+error.message;return}
- usdtBalance=Number(data)||0;
- const {data:holdings,error:he}=await supabaseClient.rpc('get_my_coin_balances');
- if(!he&&Array.isArray(holdings)){
-  coinBalances={};holdings.forEach(x=>{coinBalances[String(x.symbol||'').toUpperCase()]=Number(x.amount)||0});
-  document.getElementById('coinHoldings').textContent='Coin holdings: '+(holdings.filter(x=>Number(x.amount)>0).map(x=>Number(x.amount).toLocaleString('en-US',{maximumFractionDigits:8})+' '+String(x.symbol).toUpperCase()).join(', ')||'None');
- }else if(he){console.error('Coin balance load failed',he);document.getElementById('coinHoldings').textContent='Coin balances unavailable';}
- updatePortfolioDisplay();updateAvailableAmount();calcTrade();updateWithdrawValidation();
+async function refreshBalances(options={}){
+ if(!supabaseClient||!currentUser){if(options.strict)throw new Error('Please log in again before withdrawing.');return}
+ try{
+  // Do not leave the withdrawal screen waiting forever if Supabase does not respond.
+  const balanceRequest=supabaseClient.rpc('get_my_balance');
+  const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('Balance check timed out. Please check your connection and try again.')),12000));
+  const {data,error}=await Promise.race([balanceRequest,timeout]);
+  if(error)throw error;
+  const rawBalance=(data&&typeof data==='object')?(data.balance??data.usdt_balance??data.amount??0):data;
+  const parsedBalance=Number(rawBalance);
+  if(!Number.isFinite(parsedBalance)||parsedBalance<0)throw new Error('Supabase returned an invalid USDT balance.');
+  usdtBalance=parsedBalance;
+  const {data:holdings,error:he}=await supabaseClient.rpc('get_my_coin_balances');
+  if(!he&&Array.isArray(holdings)){
+   coinBalances={};holdings.forEach(x=>{coinBalances[String(x.symbol||'').toUpperCase()]=Number(x.amount)||0});
+   document.getElementById('coinHoldings').textContent='Coin holdings: '+(holdings.filter(x=>Number(x.amount)>0).map(x=>Number(x.amount).toLocaleString('en-US',{maximumFractionDigits:8})+' '+String(x.symbol).toUpperCase()).join(', ')||'None');
+  }else if(he){console.error('Coin balance load failed',he);document.getElementById('coinHoldings').textContent='Coin balances unavailable';}
+  updatePortfolioDisplay();updateAvailableAmount();calcTrade();updateWithdrawValidation();
+  return usdtBalance;
+ }catch(err){
+  console.error('Balance load failed',err);
+  document.getElementById('tradeMsg').textContent='Balance could not be loaded: '+(err.message||'Unknown error');
+  if(options.strict)throw err;
+  return null;
+ }
 }
 async function logout(){
  if(backendReady&&supabaseClient){try{await supabaseClient.auth.signOut()}catch(e){console.error(e)}}
@@ -573,8 +645,8 @@ async function logout(){
 }
 async function previewTrade(){
  const amount=Number(document.getElementById('tradeAmount').value), price=Number(prices[selectedCoin[0]]?.usd), tradeMsg=document.getElementById('tradeMsg');
- if(!currentUser||!supabaseClient){tradeMsg.textContent='প্রথমে Login করুন।';return}
- if(!Number.isFinite(amount)||amount<=0||!Number.isFinite(price)||price<=0){tradeMsg.textContent='সঠিক পরিমাণ বা market price পাওয়া যায়নি।';return}
+ if(!currentUser||!supabaseClient){tradeMsg.textContent='Please log in first.';return}
+ if(!Number.isFinite(amount)||amount<=0||!Number.isFinite(price)||price<=0){tradeMsg.textContent='Invalid amount or market price.';return}
  const btn=document.getElementById('tradeOrderButton');btn.disabled=true;tradeMsg.style.color='';
  try{
   const {data,error}=await supabaseClient.rpc('convert_usdt_to_coin',{p_symbol:selectedCoin[2],p_side:side,p_coin_amount:amount,p_usd_price:price});
@@ -589,38 +661,23 @@ async function previewTrade(){
    transaction_id:tradeResult.transaction_id||null
   });
   await refreshBalances();tradeMsg.style.color='#70e3b6';
-  tradeMsg.textContent=side==='Buy'?'Conversion successful: '+amount+' '+selectedCoin[2]+' যোগ হয়েছে।':'Conversion successful: '+amount+' '+selectedCoin[2]+' বিক্রি হয়েছে।';
- }catch(e){tradeMsg.style.color='#ff8ba0';tradeMsg.textContent='Conversion হয়নি: '+(e.message||'Unknown error')}
+  tradeMsg.textContent=side==='Buy'?'Conversion successful: '+amount+' '+selectedCoin[2]+' added.':'Conversion successful: '+amount+' '+selectedCoin[2]+' sold.';
+ }catch(e){tradeMsg.style.color='#ff8ba0';tradeMsg.textContent='Conversion failed: '+(e.message||'Unknown error')}
  finally{calcTrade()}
 }
 const TELEGRAM_USERNAME='treasury_io'; // Telegram username without @
 function telegramUrl(){return 'https://t.me/'+TELEGRAM_USERNAME}
 function openTelegram(){window.open(telegramUrl(),'_blank','noopener,noreferrer')}
 // Send event notifications through the authenticated Supabase Edge Function.
-// The function name MUST match the deployed Supabase function: telegram-notify.
-// No Telegram bot token, service-role key, or internal secret is placed in this public HTML.
+// No Telegram token or internal secret is ever placed in this public HTML.
 async function notifyTelegramEvent(event, details={}){
  if(!supabaseClient)return {ok:false,error:'Supabase is not connected'};
  try{
   const {data,error}=await supabaseClient.functions.invoke('telegram-notify',{body:{event,...details}});
   if(error)throw error;
   if(!data||data.success!==true)throw new Error(data?.error||'Notification was not accepted');
-  return {ok:true,data};
- }catch(err){
-  console.error('telegram-notify invocation failed:',err);
-  return {ok:false,error:err?.message||'Notification failed'};
- }
-}
-// Phone sign-up may return no session when phone confirmation is enabled.
-// In that case the first successful login has a valid JWT and can send the notice.
-async function notifyRegistrationOnce(user, phone){
- const uid=String(user?.id||'');
- if(!uid)return {ok:false,error:'Authenticated user ID is missing'};
- const key='treasury_registration_notice_sent_'+uid;
- try{if(localStorage.getItem(key)==='1')return {ok:true,alreadySent:true};}catch(e){}
- const result=await notifyTelegramEvent('registration',{phone:String(phone||user?.phone||'')});
- if(result.ok){try{localStorage.setItem(key,'1')}catch(e){}}
- return result;
+  return {ok:true};
+ }catch(err){console.warn('Telegram notification failed:',err?.message||err);return {ok:false,error:err?.message||'Notification failed'};}
 }
 
 const depositAmountInput=document.getElementById('depositAmount');
@@ -650,25 +707,53 @@ async function completeDeposit(){
  const hash=document.getElementById('depositTxHash').value.trim();
  const amount=Number(document.getElementById('depositSelectedAmount').value);
  const msg=document.getElementById('depositPaymentMsg'),btn=document.getElementById('depositCompleteButton');
- if(!currentUser||!supabaseClient){msg.textContent='ডিপোজিট জমা দিতে আগে লগইন করুন।';return}
- if(!hash||!Number.isFinite(amount)||amount<100){msg.textContent='সঠিক amount ও transaction hash দিন।';return}
- btn.disabled=true;msg.textContent='আপনার Deposit Request জমা হচ্ছে…';
+ if(!currentUser||!supabaseClient){msg.textContent='Please log in before submitting a deposit request.';return}
+ if(!hash||!Number.isFinite(amount)||amount<100){msg.textContent='Please enter a valid amount and transaction hash.';return}
+ btn.disabled=true;msg.textContent='Submitting your deposit request…';
  try{
   const {data,error}=await supabaseClient.functions.invoke('submit-deposit-request',{
    body:{tx_hash:hash,amount}
   });
-  if(error)throw new Error(error.message||'Request submission failed');
+  if(error){
+   // Read the server error message from the Supabase FunctionsHttpError response body.
+   let serverMessage='';
+   try{
+    if(error.context && typeof error.context.clone==='function'){
+     const errorBody=await error.context.clone().json();
+     serverMessage=String(errorBody?.error||'');
+    }
+   }catch(_){}
+   if(serverMessage==='') serverMessage=error.message||'Request submission failed';
+   const duplicateMessage='This transaction has already been used. Please enter a new transaction hash.';
+   if(serverMessage.toLowerCase().includes('duplicate') || serverMessage.toLowerCase().includes('already exists') || serverMessage.toLowerCase().includes('this transaction has already been used')){
+    throw new Error(duplicateMessage);
+   }
+   throw new Error(serverMessage);
+  }
   if(!data||data.success!==true)throw new Error(data?.error||'Request submission failed');
-  const telegramResult=data.telegram_sent===true?{ok:true}:await notifyTelegramEvent('deposit',{amount,tx_hash:hash,transaction_id:data.request_id||data.id||null,status:'Pending'});
-  msg.textContent='Deposit Request সফলভাবে জমা হয়েছে। Status: PENDING. Admin অনুমোদন না দেওয়া পর্যন্ত ব্যালেন্সে USDT যোগ হবে না.'+
-   (telegramResult.ok?' Telegram notification পাঠানো হয়েছে.':' Request জমা হয়েছে, তবে Telegram notification পাঠানো যায়নি.');
+  // Telegram alert runs silently; it must not block or replace the customer confirmation page.
+  if(data.telegram_sent!==true){
+   notifyTelegramEvent('deposit',{amount,tx_hash:hash,transaction_id:data.request_id||data.id||null,status:'Pending'}).catch(()=>{});
+  }
+  showTransactionSuccessPage('deposit',{
+   order:data.request_id||data.id||('DEP-'+Date.now()),
+   amount:amount,
+   reference:hash,
+   status:'PENDING'
+  });
   document.getElementById('depositTxHash').value='';
-  await loadAccountHistory('deposit-history');
- }catch(e){msg.textContent='ডিপোজিট Request জমা হয়নি: '+(e.message||'Unknown error');}
+  loadAccountHistory('deposit-history').catch(()=>{});
+ }catch(e){
+  const message=e.message||'Unknown error';
+  msg.textContent=message.toLowerCase().includes('this transaction has already been used')
+   ? message
+   : 'Deposit request was not submitted: '+message;
+  msg.style.color=message.toLowerCase().includes('this transaction has already been used')?'#dc2626':'';
+ }
  finally{btn.disabled=false;document.getElementById('depositCompleteButton').disabled=!document.getElementById('depositTxHash').value.trim()}
 }
 function openSupport(kind){
- document.getElementById('supportTitle').textContent=kind==='deposit'?'ডিপোজিট':kind==='withdraw'?'Withdraw':'অনলাইন কাস্টমার সার্ভিস';
+ document.getElementById('supportTitle').textContent=kind==='deposit'?'Deposit':kind==='withdraw'?'Withdraw':'Online Customer Support';
  document.getElementById('supportStandard').classList.toggle('hidden',kind!=='general');
  document.getElementById('depositPanel').classList.toggle('hidden',kind!=='deposit');
  document.getElementById('withdrawForm').classList.toggle('hidden',kind!=='withdraw');
@@ -700,6 +785,7 @@ function setWithdrawMax(){
  amountInput.value=available>0?String(available):'';
  updateWithdrawValidation();
 }
+function amountInputHasValue(){return document.getElementById('withdrawAmount').value.trim()!==''}
 function updateWithdrawValidation(){
  const address=document.getElementById('withdrawAddress').value.trim();
  const amount=Number(document.getElementById('withdrawAmount').value);
@@ -712,10 +798,9 @@ function updateWithdrawValidation(){
  // Hide the confirmation button when the requested USDT exceeds the actual USDT balance.
  button.style.display=overBalance?'none':'';
  button.disabled=!(currentUser&&address&&amountValid&&!overBalance);
- if(!currentUser){msg.textContent='Withdrawal করতে আগে লগইন করুন।'}
- else if(overBalance){msg.textContent='আপনার Available USDT balance-এর চেয়ে বেশি withdrawal করা যাবে না।';}
- else if(amountValid&&amount<=0){msg.textContent='সঠিক amount লিখুন।'}
- else if(amountValid&&amount>0){msg.textContent='Available balance-এর মধ্যে amount লিখুন।';}
+ if(!currentUser){msg.textContent='Please log in before withdrawing.'}
+ else if(overBalance){msg.textContent='You cannot withdraw more than your available USDT balance.';}
+ else if(amountInputHasValue()&&!amountValid){msg.textContent='Enter a valid amount.'}
  else{msg.textContent='';}
 }
 document.getElementById('withdrawAddress').addEventListener('input',updateWithdrawValidation);
@@ -725,18 +810,55 @@ document.getElementById('withdrawForm').addEventListener('submit',async function
  const address=document.getElementById('withdrawAddress').value.trim();
  const amount=Number(document.getElementById('withdrawAmount').value);
  const msg=document.getElementById('withdrawMsg'),btn=document.getElementById('confirmWithdrawButton');
- if(!currentUser||!supabaseClient||!address||!Number.isFinite(amount)||amount<=0){msg.textContent='সঠিক address, amount এবং login প্রয়োজন।';updateWithdrawValidation();return}
- if(amount>Number(usdtBalance)+1e-8){msg.textContent='আপনার Available USDT balance যথেষ্ট নয়।';updateWithdrawValidation();return}
- btn.disabled=true;msg.textContent='Withdrawal request জমা হচ্ছে…';
+ if(!currentUser||!supabaseClient||!address||!Number.isFinite(amount)||amount<=0){msg.textContent='A valid address, amount, and login session are required.';updateWithdrawValidation();return}
+ btn.disabled=true;msg.textContent='Checking your latest available balance…';
  try{
+  await refreshBalances({strict:true});
+  if(amount>Number(usdtBalance)+1e-8)throw new Error('Your latest available USDT balance is insufficient for this withdrawal.');
+  msg.textContent='Submitting your withdrawal request…';
   const {data,error}=await supabaseClient.functions.invoke('submit-withdrawal',{body:{destination_address:address,amount_usdt:amount,network:'TRC20'}});
   if(error)throw error;if(!data||!data.ok)throw new Error(data?.error||'Request failed');
-  const telegramResult=data.telegram_sent===true?{ok:true}:await notifyTelegramEvent('withdrawal',{amount,address,transaction_id:data.request_id||data.id||null,status:'Pending'});
-  msg.style.color='#62e3b8';msg.textContent='Withdrawal request জমা হয়েছে। Status: Pending. Request ID: '+data.request_id+
-   (telegramResult.ok?' Telegram notification পাঠানো হয়েছে.':' তবে Telegram notification পাঠানো যায়নি.');
-  await refreshBalances();
- }catch(err){msg.style.color='#ff8ba0';msg.textContent='Request জমা হয়নি: '+(err.message||'Unknown error')}
+  // Send Telegram notification in the background; show the confirmation independently.
+  if(data.telegram_sent!==true){
+   notifyTelegramEvent('withdrawal',{amount,address,transaction_id:data.request_id||data.id||null,status:'Pending'}).catch(()=>{});
+  }
+  showTransactionSuccessPage('withdrawal',{
+   order:data.request_id||data.id||('WDR-'+Date.now()),
+   amount:amount,
+   reference:address,
+   status:'PENDING'
+  });
+  refreshBalances().catch(()=>{});
+ }catch(err){msg.style.color='#ff8ba0';msg.textContent='Request was not submitted: '+(err.message||'Unknown error')}
  finally{btn.disabled=false;updateWithdrawValidation()}
+});
+function showTransactionSuccessPage(type, details){
+ const isDeposit=type==='deposit';
+ const page=document.getElementById('transactionSuccessPage');
+ document.getElementById('successBrandTitle').textContent='TREASURY';
+ document.getElementById('successPageTitle').textContent=isDeposit?'DEPOSIT REQUEST SUCCESSFUL':'WITHDRAWAL REQUEST SUCCESSFUL';
+ document.getElementById('successPageSubtitle').textContent=isDeposit?'Your deposit request has been received successfully.':'Your withdrawal request has been received successfully.';
+ document.getElementById('successDetailAmount').textContent=Number(details.amount||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:8})+' USDT';
+ document.getElementById('successReferenceLabel').textContent=isDeposit?'TRANSACTION HASH':'WITHDRAWAL ADDRESS';
+ document.getElementById('successReferenceValue').textContent=String(details.reference||'—');
+ document.getElementById('successOrderValue').textContent=String(details.order||'—');
+ document.getElementById('successPageNote').textContent=isDeposit
+  ? 'Your request has been safely recorded.'
+  : 'Your withdrawal request is recorded and is awaiting admin review. Funds are not marked as sent until processing is completed.';
+ document.getElementById('successPageStatus').textContent='PENDING REVIEW';
+ page.classList.add('show');
+ document.body.style.overflow='hidden';
+ try{history.pushState({treasuryConfirmation:true},'', '#'+(isDeposit?'deposit-success':'withdrawal-success'));}catch(_){}
+}
+function closeTransactionSuccessPage(){
+ const page=document.getElementById('transactionSuccessPage');
+ page.classList.remove('show');
+ document.body.style.overflow='';
+ try{if(location.hash==='\u0023deposit-success'||location.hash==='\u0023withdrawal-success')history.replaceState(null,'',location.pathname+location.search);}catch(_){}
+}
+window.addEventListener('popstate',()=>{
+ const page=document.getElementById('transactionSuccessPage');
+ if(page&&page.classList.contains('show'))closeTransactionSuccessPage();
 });
 function openSettings(){if(!currentUser){openAuth('login');return}document.getElementById('settingsUsername').textContent=currentUser;document.getElementById('settingsOverlay').classList.add('show')}
 function closeSettings(){document.getElementById('settingsOverlay').classList.remove('show')}
@@ -781,12 +903,31 @@ function renderProfitChart(){
  el.innerHTML=(total<0?'-':'')+Math.abs(total).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:4})+' <span class="muted" style="font-size:13px">USDT</span>';el.className='metric '+(total<0?'red':total>0?'green':'');
  document.getElementById('profitCount').textContent=rows.length+' trade'+(rows.length===1?'':'s')+' · Realized '+(realized>=0?'+':'')+fmtTradeNum(realized,4)+' · Open P/L '+(unrealized>=0?'+':'')+fmtTradeNum(unrealized,4);
  const canvas=document.getElementById('profitChartCanvas');
- if(!rows.length){canvas.innerHTML='<svg viewBox="0 0 800 190" preserveAspectRatio="none" style="width:100%;height:100%"><text x="400" y="95" fill="#93a3bf" text-anchor="middle">সফল Buy/Sell করলে এখানে Profit/Loss দেখাবে</text></svg>'}
+ if(!rows.length){canvas.innerHTML='<svg viewBox="0 0 800 190" preserveAspectRatio="none" style="width:100%;height:100%"><text x="400" y="95" fill="#93a3bf" text-anchor="middle">Profit and loss will appear here after a successful buy or sell.</text></svg>'}
  else{let running=0;const vals=rows.map(r=>{running+=r.realizedPL==null?0:Number(r.realizedPL)||0;return running});const min=Math.min(0,...vals),max=Math.max(0,...vals),range=max-min||1;const pts=vals.map((v,i)=>({x:rows.length===1?400:40+i*720/(rows.length-1),y:160-(v-min)/range*125}));const path=pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');const grid=[35,75,115,155].map(y=>`<path d="M20 ${y}H780" stroke="#283650"/>`).join('');const circles=pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#20c997"/>`).join('');canvas.innerHTML=`<svg viewBox="0 0 800 190" preserveAspectRatio="none" style="width:100%;height:100%">${grid}<path d="${path}" fill="none" stroke="#20c997" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${circles}<text x="20" y="181" fill="#93a3bf" font-size="11">${escapeTradeText(new Date(rows[0].createdAt).toLocaleDateString())}</text><text x="780" y="181" fill="#93a3bf" font-size="11" text-anchor="end">${escapeTradeText(new Date(rows[rows.length-1].createdAt).toLocaleDateString())}</text></svg>`}
  const list=document.getElementById('profitRecords');
- list.innerHTML=rows.slice().reverse().map(r=>{const cp=currentCoinPrice(r),open=Number(r.openingPrice)||0,qty=Number(r.quantity)||0,stopEarn=r.stopEarningPrice==null?(r.side==='Buy'?open*1.05:open*0.95):Number(r.stopEarningPrice),stopLoss=r.stopLossPrice==null?(r.side==='Buy'?open*0.98:open*1.02):Number(r.stopLossPrice),unreal=r.side==='Buy'?qty*(cp-open)-Number(r.serviceCharge||0)-Number(r.overnightCharges||0):null,pl=r.realizedPL==null?unreal:Number(r.realizedPL)-Number(r.serviceCharge||0)-Number(r.overnightCharges||0),time=new Date(r.createdAt);return `<article style="padding:13px;margin-bottom:10px;border:1px solid var(--line);border-radius:11px;background:#0d1628"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><strong>${escapeTradeText(r.side==='Buy'?'Long':'Sell')} ${escapeTradeText(r.symbol)}/USDT x100</strong><span class="small muted">${escapeTradeText(time.toLocaleString())}</span></div><div class="small ${pl<0?'red':'green'}" style="font-weight:800;margin:5px 0 10px">${pl>=0?'+':''}${fmtTradeNum(pl,4)} USDT ${r.realizedPL==null?'(Unrealized P/L)':'(Realized P/L)'}</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;font-size:11px;color:var(--muted)"><div>Opening Price: <b style="color:var(--text)">${fmtTradeNum(open,6)}</b></div><div>Current Price: <b style="color:var(--text)">${fmtTradeNum(cp,6)}</b></div><div>Stop Earning Price: <b style="color:var(--text)">${fmtTradeNum(stopEarn,6)}</b></div><div>Bond: <b style="color:var(--text)">${fmtTradeNum(r.bond,4)} USDT</b></div><div>Stop-Loss Price: <b style="color:var(--text)">${fmtTradeNum(stopLoss,6)}</b></div><div>Service Charge: <b style="color:var(--text)">${fmtTradeNum(r.serviceCharge,4)} USDT</b></div><div>Overnight Charges: <b style="color:var(--text)">${fmtTradeNum(r.overnightCharges,4)} USDT</b></div><div>Converted Quantity: <b style="color:var(--text)">${fmtTradeNum(qty)} ${escapeTradeText(r.symbol)}</b></div></div></article>`}).join('')||'<div class="muted small">এখনও কোনো সফল trade record নেই। Buy/Sell conversion সফল হলে এখানে স্বয়ংক্রিয়ভাবে যোগ হবে।</div>';
+ list.innerHTML=rows.slice().reverse().map(r=>{const cp=currentCoinPrice(r),open=Number(r.openingPrice)||0,qty=Number(r.quantity)||0,stopEarn=r.stopEarningPrice==null?(r.side==='Buy'?open*1.05:open*0.95):Number(r.stopEarningPrice),stopLoss=r.stopLossPrice==null?(r.side==='Buy'?open*0.98:open*1.02):Number(r.stopLossPrice),unreal=r.side==='Buy'?qty*(cp-open)-Number(r.serviceCharge||0)-Number(r.overnightCharges||0):null,pl=r.realizedPL==null?unreal:Number(r.realizedPL)-Number(r.serviceCharge||0)-Number(r.overnightCharges||0),time=new Date(r.createdAt);return `<article style="padding:13px;margin-bottom:10px;border:1px solid var(--line);border-radius:11px;background:#0d1628"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><strong>${escapeTradeText(r.side==='Buy'?'Long':'Sell')} ${escapeTradeText(r.symbol)}/USDT x100</strong><span class="small muted">${escapeTradeText(time.toLocaleString())}</span></div><div class="small ${pl<0?'red':'green'}" style="font-weight:800;margin:5px 0 10px">${pl>=0?'+':''}${fmtTradeNum(pl,4)} USDT ${r.realizedPL==null?'(Unrealized P/L)':'(Realized P/L)'}</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;font-size:11px;color:var(--muted)"><div>Opening Price: <b style="color:var(--text)">${fmtTradeNum(open,6)}</b></div><div>Current Price: <b style="color:var(--text)">${fmtTradeNum(cp,6)}</b></div><div>Stop Earning Price: <b style="color:var(--text)">${fmtTradeNum(stopEarn,6)}</b></div><div>Bond: <b style="color:var(--text)">${fmtTradeNum(r.bond,4)} USDT</b></div><div>Stop-Loss Price: <b style="color:var(--text)">${fmtTradeNum(stopLoss,6)}</b></div><div>Service Charge: <b style="color:var(--text)">${fmtTradeNum(r.serviceCharge,4)} USDT</b></div><div>Overnight Charges: <b style="color:var(--text)">${fmtTradeNum(r.overnightCharges,4)} USDT</b></div><div>Converted Quantity: <b style="color:var(--text)">${fmtTradeNum(qty)} ${escapeTradeText(r.symbol)}</b></div></div></article>`}).join('')||'<div class="muted small">No successful trade records yet. Completed buy/sell conversions will appear here automatically.</div>';
 }
 function exportTradeHistory(){const rows=getTradeLog();const blob=new Blob([JSON.stringify({trades:rows,lots:getTradeLots()},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='treasury-trade-history.json';a.click();URL.revokeObjectURL(url)}
 loadMarkets();setInterval(loadMarkets,60000);
 </script>
+
+<div id="transactionSuccessPage" aria-live="polite" aria-modal="true" role="dialog">
+ <section class="success-shell">
+  <div class="success-brand"><span class="success-brand-mark">T</span><span id="successBrandTitle">TREASURY</span></div>
+  <div class="success-icon" aria-hidden="true">✓</div>
+  <h1 class="success-title" id="successPageTitle">DEPOSIT REQUEST SUCCESS</h1>
+  <p class="success-subtitle" id="successPageSubtitle">Your request has been received successfully.</p>
+  <div class="success-status"><span class="success-status-dot"></span><span id="successPageStatus">PENDING REVIEW</span></div>
+  <div class="success-details">
+   <div class="success-detail-row"><span class="success-detail-label">ORDER NUMBER</span><span class="success-detail-value" id="successOrderValue">—</span></div>
+   <div class="success-detail-row"><span class="success-detail-label">AMOUNT</span><span class="success-detail-value amount" id="successDetailAmount">0.00 USDT</span></div>
+   <div class="success-detail-row"><span class="success-detail-label" id="successReferenceLabel">TRANSACTION HASH</span><span class="success-detail-value" id="successReferenceValue">—</span></div>
+  </div>
+  <p class="success-note" id="successPageNote">Your request is awaiting admin review.</p>
+  <button type="button" class="success-home" onclick="closeTransactionSuccessPage()">BACK TO TREASURY</button>
+  <div class="success-order">PLEASE KEEP YOUR ORDER NUMBER FOR REFERENCE</div>
+ </section>
+</div>
+
 </body></html>
