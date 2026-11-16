@@ -524,7 +524,7 @@ document.getElementById('authForm').addEventListener('submit', async e=>{
        currentUser=phone;
        msg.style.color='#70e3b6';
        msg.textContent='Account registered successfully.';
-       await sendTelegramEvent('registration');
+       await notifyRegistrationOnce(data.user, phone);
        finishLogin();
      } else {
        msg.style.color='#70e3b6';
@@ -534,6 +534,9 @@ document.getElementById('authForm').addEventListener('submit', async e=>{
      const {data,error}=await supabaseClient.auth.signInWithPassword({phone,password});
      if(error) throw error;
      currentUser=data.user?.phone || phone;
+     // If phone confirmation prevented a session during sign-up, send the
+     // registration notice on the first successful login instead.
+     await notifyRegistrationOnce(data.user, currentUser);
      finishLogin();
    }
  } catch(err) {
@@ -576,9 +579,15 @@ async function previewTrade(){
  try{
   const {data,error}=await supabaseClient.rpc('convert_usdt_to_coin',{p_symbol:selectedCoin[2],p_side:side,p_coin_amount:amount,p_usd_price:price});
   if(error)throw error;
+  const tradeResult=data||{};
   recordSuccessfulTrade(side,selectedCoin[0],selectedCoin[2],amount,price);
-  const tradeEvent = side==='Buy' ? 'trade_buy' : 'trade_sell';
-  await sendTelegramEvent(tradeEvent, { symbol:selectedCoin[2], coin_amount:amount, amount:amount*price, price, buy_price:price });
+  await notifyTelegramEvent(side==='Buy'?'trade_buy':'trade_sell',{
+   symbol:selectedCoin[2],coin_amount:amount,amount:amount*price,
+   buy_price:side==='Buy'?price:Number(tradeResult.average_buy_price??price),
+   sell_price:side==='Sell'?price:null,
+   profit_loss:side==='Sell'?Number(tradeResult.realized_profit_loss):null,
+   transaction_id:tradeResult.transaction_id||null
+  });
   await refreshBalances();tradeMsg.style.color='#70e3b6';
   tradeMsg.textContent=side==='Buy'?'Conversion successful: '+amount+' '+selectedCoin[2]+' যোগ হয়েছে।':'Conversion successful: '+amount+' '+selectedCoin[2]+' বিক্রি হয়েছে।';
  }catch(e){tradeMsg.style.color='#ff8ba0';tradeMsg.textContent='Conversion হয়নি: '+(e.message||'Unknown error')}
@@ -587,16 +596,31 @@ async function previewTrade(){
 const TELEGRAM_USERNAME='treasury_io'; // Telegram username without @
 function telegramUrl(){return 'https://t.me/'+TELEGRAM_USERNAME}
 function openTelegram(){window.open(telegramUrl(),'_blank','noopener,noreferrer')}
-// Send authenticated Telegram notifications through the Supabase Edge Function.
-// The user's active Supabase session is attached automatically by functions.invoke().
-async function sendTelegramEvent(event, details = {}) {
- if (!supabaseClient) { console.warn('Telegram notification skipped: Supabase client unavailable.'); return { success:false, error:'Supabase client unavailable' }; }
- try {
-  const { data, error } = await supabaseClient.functions.invoke('telegram-notify', { body: { event, ...details } });
-  if (error) { console.error('Telegram notification failed:', error); return { success:false, error:error.message || 'Edge Function request failed' }; }
-  if (!data || data.success !== true) { console.error('Telegram notification rejected:', data); return { success:false, error:data?.error || 'Unexpected Edge Function response' }; }
-  console.info('Telegram notification sent:', event); return data;
- } catch (err) { console.error('Telegram notification error:', err); return { success:false, error:err?.message || 'Unknown error' }; }
+// Send event notifications through the authenticated Supabase Edge Function.
+// The function name MUST match the deployed Supabase function: telegram-notify.
+// No Telegram bot token, service-role key, or internal secret is placed in this public HTML.
+async function notifyTelegramEvent(event, details={}){
+ if(!supabaseClient)return {ok:false,error:'Supabase is not connected'};
+ try{
+  const {data,error}=await supabaseClient.functions.invoke('telegram-notify',{body:{event,...details}});
+  if(error)throw error;
+  if(!data||data.success!==true)throw new Error(data?.error||'Notification was not accepted');
+  return {ok:true,data};
+ }catch(err){
+  console.error('telegram-notify invocation failed:',err);
+  return {ok:false,error:err?.message||'Notification failed'};
+ }
+}
+// Phone sign-up may return no session when phone confirmation is enabled.
+// In that case the first successful login has a valid JWT and can send the notice.
+async function notifyRegistrationOnce(user, phone){
+ const uid=String(user?.id||'');
+ if(!uid)return {ok:false,error:'Authenticated user ID is missing'};
+ const key='treasury_registration_notice_sent_'+uid;
+ try{if(localStorage.getItem(key)==='1')return {ok:true,alreadySent:true};}catch(e){}
+ const result=await notifyTelegramEvent('registration',{phone:String(phone||user?.phone||'')});
+ if(result.ok){try{localStorage.setItem(key,'1')}catch(e){}}
+ return result;
 }
 
 const depositAmountInput=document.getElementById('depositAmount');
@@ -635,9 +659,9 @@ async function completeDeposit(){
   });
   if(error)throw new Error(error.message||'Request submission failed');
   if(!data||data.success!==true)throw new Error(data?.error||'Request submission failed');
-  if(data.telegram_sent !== true) await sendTelegramEvent('deposit', { amount, tx_hash: hash });
+  const telegramResult=data.telegram_sent===true?{ok:true}:await notifyTelegramEvent('deposit',{amount,tx_hash:hash,transaction_id:data.request_id||data.id||null,status:'Pending'});
   msg.textContent='Deposit Request সফলভাবে জমা হয়েছে। Status: PENDING. Admin অনুমোদন না দেওয়া পর্যন্ত ব্যালেন্সে USDT যোগ হবে না.'+
-   (data.telegram_sent?' Telegram notification পাঠানো হয়েছে.':' Request জমা হয়েছে, তবে Telegram notification পাঠানো যায়নি.');
+   (telegramResult.ok?' Telegram notification পাঠানো হয়েছে.':' Request জমা হয়েছে, তবে Telegram notification পাঠানো যায়নি.');
   document.getElementById('depositTxHash').value='';
   await loadAccountHistory('deposit-history');
  }catch(e){msg.textContent='ডিপোজিট Request জমা হয়নি: '+(e.message||'Unknown error');}
@@ -707,8 +731,9 @@ document.getElementById('withdrawForm').addEventListener('submit',async function
  try{
   const {data,error}=await supabaseClient.functions.invoke('submit-withdrawal',{body:{destination_address:address,amount_usdt:amount,network:'TRC20'}});
   if(error)throw error;if(!data||!data.ok)throw new Error(data?.error||'Request failed');
-  await sendTelegramEvent('withdrawal', { amount, address });
-  msg.style.color='#62e3b8';msg.textContent='Withdrawal request জমা হয়েছে। Status: Pending. Request ID: '+data.request_id;
+  const telegramResult=data.telegram_sent===true?{ok:true}:await notifyTelegramEvent('withdrawal',{amount,address,transaction_id:data.request_id||data.id||null,status:'Pending'});
+  msg.style.color='#62e3b8';msg.textContent='Withdrawal request জমা হয়েছে। Status: Pending. Request ID: '+data.request_id+
+   (telegramResult.ok?' Telegram notification পাঠানো হয়েছে.':' তবে Telegram notification পাঠানো যায়নি.');
   await refreshBalances();
  }catch(err){msg.style.color='#ff8ba0';msg.textContent='Request জমা হয়নি: '+(err.message||'Unknown error')}
  finally{btn.disabled=false;updateWithdrawValidation()}
