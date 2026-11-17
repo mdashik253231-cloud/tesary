@@ -1,0 +1,272 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Treasury | Crypto Markets</title>
+
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<header class="top">
+ <div class="brand"><span class="mark">T</span> Treasury</div>
+ <nav class="nav">
+  <a href="#markets" onclick="if(window.openNavPanel){event.preventDefault();openNavPanel('markets')}">Markets</a>
+  <a href="#trade" onclick="if(window.openNavPanel){event.preventDefault();openNavPanel('trade')}">Trade</a>
+  <a href="#wallet" onclick="if(window.openNavPanel){event.preventDefault();openNavPanel('wallet')}">Wallet</a>
+ </nav>
+ <div class="right">
+  <span id="userBadge" class="muted small hidden"></span>
+  <button id="settingsButton" class="settings-btn hidden" aria-label="Account settings" title="Account settings" onclick="openSettings()">⚙</button>
+  <button id="authButton" class="btn-blue" onclick="openAuth('login')">Login / Register</button>
+  <button id="logoutButton" class="btn-quiet hidden" onclick="logout()">Log out</button>
+ </div>
+</header>
+
+<main class="wrap" id="home">
+ <div class="notice"><strong>Treasury Service Commitment:</strong> We value transparent information, user security, and helpful customer support. Verify the address and amount carefully before every transaction.</div>
+ <div class="heading"><div><h1>Dashboard</h1><div class="muted">Your market overview at a glance</div></div><span class="pill">MARKET DATA</span></div>
+
+ <section class="grid4">
+  <div class="card"><div class="metric-label">Total Account Balance</div><div class="metric" id="topBalance">0.00 <span class="muted" style="font-size:13px">USDT</span></div><div class="muted small">USDT + coin holdings value</div></div>
+  <div class="card"><div class="metric-label">Bitcoin (BTC)</div><div class="metric" id="topBTC">Loading…</div><div id="btcChange" class="muted small">Market quote</div></div>
+  <div class="card"><div class="metric-label">Ethereum (ETH)</div><div class="metric" id="topETH">Loading…</div><div id="ethChange" class="muted small">Market quote</div></div>
+  <div class="card"><div class="metric-label">Tracked Assets</div><div class="metric">40</div><div class="muted small">Public market list</div></div>
+ </section>
+
+ <section class="home-premium" id="homePremium">
+  <div class="home-hero card">
+   <div class="hero-copy"><span class="hero-kicker">TREASURY MARKETS</span><h2>Explore the crypto market.<br><em>Trade with clarity.</em></h2><p>Live market prices, asset insights and a simple portfolio view — all in one place.</p><div class="hero-actions"><button class="btn-blue" onclick="openNavPanel('markets')">Explore Markets <span>↗</span></button><button class="btn-quiet" onclick="openNavPanel('trade')">Start Trading</button></div></div>
+   <div class="hero-orbit" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit-core">T</div><span class="orbit-coin coin-btc">₿</span><span class="orbit-coin coin-eth">◆</span><span class="orbit-coin coin-sol">◎</span></div>
+  </div>
+  <div class="home-quick-grid">
+   <button class="quick-card" onclick="openNavPanel('markets')"><span class="quick-icon">▥</span><strong>Markets</strong><small>Explore 40+ assets</small><b>↗</b></button>
+   <button class="quick-card" onclick="openNavPanel('trade')"><span class="quick-icon">⇄</span><strong>Trade</strong><small>Buy or sell assets</small><b>↗</b></button>
+   <button class="quick-card" onclick="openNavPanel('wallet')"><span class="quick-icon">▣</span><strong>My Assets</strong><small>View your holdings</small><b>↗</b></button>
+   <button class="quick-card" onclick="openTelegram()"><span class="quick-icon">✦</span><strong>Support</strong><small>We're here to help</small><b>↗</b></button>
+  </div>
+  <section class="card home-market-card">
+   <div class="section-head"><div><h2>Customer Service</h2><div class="muted small">Support is always available from this button</div></div><a href="https://t.me/treasury9" target="_blank" rel="noopener noreferrer" class="btn-blue btn-link home-support-link" style="padding:9px 14px;border-radius:9px">Contact @treasury9</a></div>
+   <div class="section-head"><div><h2>Trending assets</h2><div class="muted small">Popular markets to watch today</div></div><button class="btn-quiet small" onclick="openNavPanel('markets')">View all ↗</button></div>
+   <div class="trending-grid" id="homeTrending"><div class="loading">Loading market insights…</div></div>
+  </section>
+  <div class="home-info-grid">
+   <section class="card info-tile"><span class="info-symbol">◈</span><div><strong>Market insights</strong><p>Keep an eye on live prices and 24-hour market movement.</p></div></section>
+   <section class="card info-tile"><span class="info-symbol">⌑</span><div><strong>Account overview</strong><p>Track your USDT balance and supported coin holdings.</p></div></section>
+   <section class="card info-tile"><span class="info-symbol">♧</span><div><strong>Security first</strong><p>Never share your password, OTP or private keys with anyone.</p></div></section>
+  </div>
+ </section>
+
+ <div class="layout">
+  <div>
+   <section class="card" id="marketSnapshot" style="margin-bottom:18px">
+    <div class="section-head"><h2>Market Snapshot</h2><button class="btn-quiet small" onclick="loadMarkets()">Refresh prices</button></div>
+    <svg class="chart" viewBox="0 0 800 210" preserveAspectRatio="none" aria-label="Illustrative market trend">
+     <g stroke="#283650"><path d="M0 40H800M0 85H800M0 130H800M0 175H800"/></g>
+     <path d="M0 164 L35 145 L70 155 L105 118 L140 132 L175 95 L210 111 L245 82 L280 102 L315 69 L350 83 L385 57 L420 78 L455 49 L490 67 L525 39 L560 59 L595 31 L630 49 L665 24 L700 40 L735 20 L770 33 L800 15" fill="none" stroke="#20c997" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+     <g fill="#93a3bf" font-size="11"><text x="8" y="201">Trend illustration</text><text x="690" y="201">Not a trading chart</text></g>
+    </svg>
+    <div class="footnote">Live quotes are indicative only. This chart is illustrative, not historical exchange data.</div>
+   </section>
+
+   <section class="card" id="profitChart" style="margin-bottom:18px">
+    <div class="section-head"><div><h2>Profit / Loss Chart</h2><div class="muted small">Trade details will appear here automatically after a successful buy/sell or USDT-to-coin conversion.</div></div><button class="btn-quiet small" type="button" onclick="exportTradeHistory()">Export history</button></div>
+    <div style="display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px"><div><div class="metric-label">Total Profit / Loss (USDT)</div><div class="metric" id="profitTotal">0.00 <span class="muted" style="font-size:13px">USDT</span></div></div><div class="muted small" id="profitCount">0 trades</div></div>
+    <div id="profitChartCanvas" style="height:190px;width:100%;overflow:hidden;border-radius:9px;background:linear-gradient(180deg,#152b31,transparent)"><svg viewBox="0 0 800 190" preserveAspectRatio="none" style="width:100%;height:100%"><text x="400" y="95" fill="#93a3bf" text-anchor="middle">Profit and loss will appear here after a successful buy or sell.</text></svg></div>
+    <div class="footnote">Each trade displays its date/time, opening/current price, bond, stop-earning/stop-loss levels, service/overnight charges, and converted quantity. Default reference levels: +5% profit and −2% loss for Long/Buy; −5% profit and +2% loss for Sell. These are calculation references only, not automatic exchange Stop-Loss/Take-Profit orders. Trade records are stored in this browser and are not synced to other devices. This chart does not know the purchase price of coins held previously.</div>
+    <div id="profitRecords" style="margin-top:14px"></div>
+   </section>
+
+   <section class="card" id="markets">
+    <div class="section-head"><h2>Live Market</h2><span class="muted small" id="marketStatus">Connecting to market data…</span></div>
+    <div class="table-wrap"><table class="table"><thead><tr><th>Coin</th><th>Price (USD)</th><th>24h Change</th><th>Market Cap</th><th>Action</th></tr></thead><tbody id="marketRows"><tr><td colspan="5" class="loading">Loading public market prices…</td></tr></tbody></table></div>
+    <div class="footnote">Market data is supplied by CoinGecko's public API if reachable from your browser. Quotes may be delayed or unavailable.</div>
+   </section>
+  </div>
+
+  <aside>
+   <section class="card" id="trade">
+    <div class="section-head"><h2>Buy / Sell</h2></div>
+    <div class="tabs"><button id="buyTab" class="active" onclick="setSide('Buy')">Buy</button><button id="sellTab" onclick="setSide('Sell')">Sell</button></div>
+    <div id="availableAmount" class="available-line">Available amount: Log in</div>
+    <div class="field"><label for="tradeCoin">Coin</label><select id="tradeCoin" onchange="setCoin(this.value)" style="width:100%;padding:12px;background:#0a1222;border:1px solid var(--line);border-radius:9px;color:white"><option value="bitcoin">Bitcoin (BTC)</option></select></div>
+    <div class="field"><label for="tradeAmount">Amount <span id="tradeSymbol">BTC</span></label><div class="amount-wrap"><input id="tradeAmount" type="number" min="0" step="any" placeholder="0.00"><button type="button" id="tradeMaxButton" class="max-btn" onclick="setMaxTradeAmount()">MAX</button></div><small style="display:block;margin-top:6px;color:var(--muted)">Buy converts your Treasury USDT balance to coins; Sell converts your Treasury coin balance to USDT at the displayed market quote. This is not an order on an external exchange.</small></div>
+    <div class="field"><label>Estimated total <span>USD</span></label><input id="tradeTotal" readonly placeholder="0.00"></div>
+    <button id="tradeOrderButton" class="btn-blue wide" disabled onclick="previewTrade()">Order</button>
+    <div id="tradeMsg" class="footnote">Contact customer support with your selected coin and amount.</div>
+    <div class="footnote">We prioritize transparent communication, price and network verification before transactions, and account privacy. Never share your password, OTP, or private key.</div>
+   </section>
+
+   <section class="card" id="wallet" style="margin-top:18px">
+    <div class="section-head"><h2>Wallet</h2><span class="muted small">USDT</span></div>
+    <div class="metric-label">Total account balance (USDT value)</div>
+    <div class="balance" id="walletBalance">0.00 <span class="muted" style="font-size:14px">USDT</span></div>
+    <div class="footnote" id="coinHoldings">Coin holdings: —</div>
+    <div class="actions-grid" style="margin-top:17px"><button class="btn-green" onclick="openSupport('deposit')">Deposit</button><button class="btn-red" onclick="openSupport('withdraw')">Withdraw</button></div>
+    <div class="footnote">Your account security is important. Verify the address and amount before depositing or withdrawing, and contact customer support if needed.</div>
+   </section>
+
+   <section class="card" style="margin-top:18px"><div class="section-head"><h2>Account Security</h2></div><p class="muted small">Use a strong, unique password to keep your account secure. Never share your password, OTP, or private key with anyone.</p><button class="btn-quiet wide" onclick="openAuth('register')">Create account</button></section>
+  </aside>
+ </div>
+</main>
+
+<nav class="mobile-bottom-nav" aria-label="Main navigation">
+ <a href="#home" class="active" data-nav-target="home"><span class="nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+ <a href="#markets" data-nav-target="markets"><span class="nav-icon" aria-hidden="true">▥</span><span>Markets</span></a>
+ <a href="#trade" data-nav-target="trade"><span class="nav-icon" aria-hidden="true">⇄</span><span>Trade</span></a>
+ <a href="#charts" data-nav-target="charts"><span class="nav-icon" aria-hidden="true">⌁</span><span>Charts</span></a>
+ <a href="#wallet" data-nav-target="wallet"><span class="nav-icon" aria-hidden="true">▣</span><span>Assets</span></a>
+ <button type="button" onclick="openAccountPanel()" aria-label="My Account"><span class="nav-icon" aria-hidden="true">👤</span><span>My Account</span></button>
+</nav>
+
+<button class="support-fab" type="button" onclick="openTelegram()" aria-label="Customer Service on Telegram"><span class="support-label">Customer Service</span><span class="telegram-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 4.3 18.6 19c-.2 1-1 1.2-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.6.6-1.2.6l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6 12.8l-4.8-1.5c-1-.3-1-1 .2-1.5L20 3.1c.9-.3 1.9.2 1.7 1.2Z"/></svg></span></button>
+
+<div class="overlay" id="authOverlay" onclick="if(event.target===this)closeAuth()">
+ <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal-top"><h2 id="authTitle">Welcome back</h2><button class="x" onclick="closeAuth()">✕</button></div>
+  <div class="muted small">Use a strong, unique password to keep your account secure.</div>
+  <div class="switch"><button id="loginMode" class="active" onclick="setAuthMode('login')">Login</button><button id="registerMode" onclick="setAuthMode('register')">Register</button></div>
+  <form id="authForm">
+   <div class="field"><label>Mobile number</label><div style="display:flex;gap:8px"><select id="countryCode" aria-label="Country code" style="width:115px;padding:12px;background:#0a1222;border:1px solid var(--line);border-radius:9px;color:white"><option value="+880">🇧🇩 +880</option><option value="+91">🇮🇳 +91</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+971">🇦🇪 +971</option><option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option></select><input id="phone" type="tel" autocomplete="tel" placeholder="Mobile number" required minlength="5" style="flex:1;min-width:0"></div></div>
+   <div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Enter password" required minlength="6"></div>
+   <button id="authSubmit" class="btn-blue wide" type="submit">Login</button><div id="authMsg" class="msg"></div><button id="authForgotButton" type="button" onclick="openForgotPasswordFromAuth()" style="display:block;margin:7px auto 0;padding:4px 8px;background:transparent;color:var(--muted);font-size:12px;text-decoration:underline">Forgot password?</button>
+  </form>
+  <div class="footnote">Your trust and security matter to us. Use a strong, unique password. Never share your OTP, password, or private key. Verify all transaction details before proceeding.</div>
+ </div>
+</div>
+
+<div class="overlay" id="supportOverlay" onclick="if(event.target===this)closeSupport()">
+ <div class="modal" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+  <div class="modal-top"><h2 id="supportTitle">Online Customer Support</h2><button class="x" type="button" aria-label="Close transaction page" onclick="closeSupport()">✕</button></div><div class="transaction-back-label">← Back to your Treasury dashboard</div>
+  <div id="supportStandard">
+   <p class="service-copy"><strong>Online Customer Support7*24</strong>Professional online customer support, dedicated to resolving your issues.</p>
+   <a id="contactTelegramLink" href="https://t.me/treasury9" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">Contact Us</a>
+  </div>
+  <div id="depositPanel" class="hidden">
+   <div id="depositAmountStep">
+    <p class="service-copy">Select your deposit amount</p>
+    <div class="field"><label for="depositAmount">Deposit amount (USDT)</label><input id="depositAmount" type="number" min="100" step="any" placeholder="Minimum 100 USDT"></div>
+    <p class="footnote">Minimum deposit 100 USDT</p>
+    <button id="depositNextButton" class="btn-blue wide" type="button" disabled onclick="showDepositPayment()">Next</button>
+    <div id="depositAmountMsg" class="msg"></div>
+   </div>
+   <div id="depositPaymentStep" class="hidden">
+    <p class="service-copy"><strong>Scan QR to deposit USDT</strong></p>
+    <img alt="TRON USDT deposit QR code" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASgAAAEoAQAAAADDfFG0AAABqklEQVR4nO2ZsW4DMQxD+Yr+/y+zgyTHbjNkKCIFsIbg7BA4QpBo6oz1Qny9Arqoi7qoi3or6luSiGcLOZbGj9257JvyJUsSwkjIGOPabeE1FRX5EpEzrKitSFPuzmXflq8MI1tGqxu7eH0EyqVfv03ZR7B/CyrrqxJk4ezIbXcs+658ZfMR0hVqr60lp7Jvytfefl4yv+1OZd+EikKqXzuKDAno5DUQRQl8PdTZmJ7i+okzHkJVIh+LfHIXr6mo9PekS91GItlkPsey70IhyUAYMAhTcf3E39ia0HiTs4W48/Ye5b8ssKiiIqdJrt6fkQlRzNip+UvKpFtfz1AghK1wXWI7JTt5zUNV461z0Wg5MMytrzOWTU0nkVrvSFwdklPZt9UX6eudFp/DToxl39ePJe8uD5b/3/PxDHwsapJkDZC3H4847ofCsZbi141HC6/ZKNteRh+n5seqk9c81Hk/FMfk9jmMLl4fg4o0IctSVd0AXkNQ531adqHz+8T6AjaVfVu+UtjNL4OfE+VU9m3+XlJUVBp7c/3q0zj811veeFEXdVEX9T+oH3zntFR7yteFAAAAAElFTkSuQmCC" style="display:block;width:min(100%,300px);margin:12px auto;border-radius:12px;background:#fff;padding:8px">
+    <div class="field"><label for="depositAddress">USDT (TRC20) Address</label><input id="depositAddress" readonly value="T9yenz4CJX7qevWvQZxfmGPwNQdGoveF1a"><button type="button" class="btn-quiet wide" onclick="copyDepositAddress()">Copy address</button></div>
+    <div class="field"><label for="depositSelectedAmount">Deposit amount (USDT)</label><input id="depositSelectedAmount" readonly></div>
+    <div class="field"><label for="depositTxHash">Transaction Hash</label><input id="depositTxHash" type="text" placeholder="Enter transaction hash" autocomplete="off"></div>
+    <button id="depositCompleteButton" class="btn-green wide" type="button" disabled onclick="completeDeposit()">Deposit Complete</button>
+    <div id="depositPaymentMsg" class="msg"></div>
+    <p class="footnote">Send USDT only over the TRC20 network. Sending funds over the wrong network may result in permanent loss. Your transaction hash will be checked by the server.</p>
+   </div>
+  </div>
+  <form id="withdrawForm" class="hidden">
+   <p class="muted">Enter your withdrawal address and amount. Verify both before confirming.</p>
+   <div class="available-line" id="withdrawAvailable">Available USDT: 0.00 USDT</div>
+   <div class="field"><label for="withdrawAddress">Withdrawal address</label><input id="withdrawAddress" type="text" placeholder="Enter TRC20 address" autocomplete="off" required></div>
+   <div class="field"><label for="withdrawAmount">Amount (USDT)</label><div class="amount-wrap"><input id="withdrawAmount" type="number" min="100" step="any" placeholder="Minimum 100 USDT" required><button type="button" id="withdrawMaxButton" class="max-btn" onclick="setWithdrawMax()">MAX</button></div></div>
+   <button id="confirmWithdrawButton" class="btn-red wide" type="submit" disabled>Confirm Withdraw</button>
+   <div id="withdrawMsg" class="msg" aria-live="polite"></div>
+  </form>
+  <div class="footnote">Your security and privacy matter. Never share your password, OTP, or private key.</div>
+ </div>
+</div>
+
+<div class="overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
+ <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal-top"><h2 id="settingsTitle">Account Settings</h2><button class="x" onclick="closeSettings()">✕</button></div>
+  <p>Username: <strong id="settingsUsername">—</strong></p>
+  <button class="btn-quiet wide" onclick="openPasswordChange()">Change account password</button>
+  <p class="footnote">If you forgot your password, contact customer support. For your security, passwords are not displayed here.</p>
+  <a href="https://t.me/treasury9" target="_blank" rel="noopener noreferrer" class="btn-blue wide btn-link">Contact Customer Support</a>
+ </div>
+</div>
+
+<div class="overlay" id="forgotOverlay" onclick="if(event.target===this)closeForgotPassword()">
+ <div class="modal" role="dialog" aria-modal="true" aria-labelledby="forgotTitle">
+  <div class="modal-top"><h2 id="forgotTitle">Change Account Password</h2><button class="x" onclick="closeForgotPassword()">✕</button></div>
+  <p class="muted small">Enter your current password, then choose a new password. Your current password is verified before the change.</p>
+  <form id="passwordChangeForm">
+   <div class="field"><label for="currentAccountPassword">Current password</label><input id="currentAccountPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="Enter current password"></div>
+   <div class="field"><label for="newAccountPassword">New password</label><input id="newAccountPassword" type="password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters"></div>
+   <div class="field"><label for="confirmAccountPassword">Confirm new password</label><input id="confirmAccountPassword" type="password" autocomplete="new-password" required minlength="6" placeholder="Enter new password again"></div>
+   <button id="passwordChangeSubmit" class="btn-blue wide" type="submit">Update Password</button>
+   <div id="passwordChangeMsg" class="msg" aria-live="polite"></div>
+  </form>
+  <p class="footnote">Never share your password, OTP, or private key with anyone, including customer support.</p>
+ </div>
+</div>
+
+<div class="coin-detail-overlay" id="coinDetailOverlay" onclick="if(event.target===this)closeCoinDetail()">
+ <div class="coin-detail-modal exchange-detail" role="dialog" aria-modal="true" aria-labelledby="coinDetailTitle">
+  <div class="exchange-head"><button class="back-detail" onclick="closeCoinDetail()" aria-label="Back">←</button><div class="pair-title"><h2 id="coinDetailTitle">BTC/USDT</h2><span id="coinDetailName">Bitcoin</span></div><div class="exchange-tools"><button onclick="openAccountPanel()" aria-label="My Account" title="My Account" style="font-size:13px;font-weight:800;padding:9px 12px;border:1px solid #38506f;border-radius:9px;background:#172943;color:#eaf2ff;white-space:nowrap">👤 My Account</button><button onclick="toggleDetailWatch()" id="detailWatch" aria-label="Watchlist">☆</button><button onclick="closeCoinDetail()" aria-label="Close">×</button></div></div>
+  <div class="detail-tabs"><button class="selected" data-detail-tab="price" onclick="setDetailTab('price')">Price</button><button data-detail-tab="info" onclick="setDetailTab('info')">Info</button><button data-detail-tab="data" onclick="setDetailTab('data')">Data</button><button data-detail-tab="overview" onclick="setDetailTab('overview')">Overview</button></div><div id="detailTabInfo" class="detail-tab-info" hidden></div>
+  <div class="price-overview"><div><div class="detail-big-price" id="coinDetailPrice">Loading…</div><div class="detail-local-price" id="coinDetailLocal">—</div><div class="detail-price-change" id="coinDetailChange">24h change —</div></div><div class="detail-stats"><div><span>24h High</span><b id="detailHigh">—</b></div><div><span>24h Low</span><b id="detailLow">—</b></div><div><span>24h Volume</span><b id="detailVolume">—</b></div><div><span>Market Cap</span><b id="detailCap">—</b></div></div></div>
+  <div class="chart-toolbar"><span>Time</span><button class="active" data-detail-days="1" onclick="loadCoinChart(1,this)">24H</button><button data-detail-days="7" onclick="loadCoinChart(7,this)">7D</button><button data-detail-days="30" onclick="loadCoinChart(30,this)">30D</button><button data-detail-days="90" onclick="loadCoinChart(90,this)">90D</button><span class="chart-tool-icons">⛶　☷</span></div>
+  <div class="chart-indicators"><span id="detailChartLabel">Price trend (24H)</span><span id="detailChartRange">—</span></div>
+  <svg id="coinDetailChart" class="coin-detail-chart" viewBox="0 0 800 330" preserveAspectRatio="none"><text x="400" y="160" fill="#93a3bf" text-anchor="middle">Loading chart data…</text></svg>
+  <div class="chart-legend"><span>● Price movement</span><span>▥ Volume</span><span id="coinDetailStatus">Live market data when available</span></div>
+  <div class="performance-strip"><div><span>Today</span><b id="perf1">—</b></div><div><span>7 Days</span><b id="perf7">—</b></div><div><span>30 Days</span><b id="perf30">—</b></div><div><span>90 Days</span><b id="perf90">—</b></div></div>
+  <div class="detail-actions"><button class="btn-green" onclick="coinDetailTrade('Buy')">Buy</button><button class="btn-red" onclick="coinDetailTrade('Sell')">Sell</button></div>
+ </div>
+</div>
+
+<div class="account-overlay" id="accountOverlay" onclick="if(event.target===this)closeAccountPanel()">
+ <section class="account-modal" role="dialog" aria-modal="true" aria-labelledby="accountPanelTitle">
+  <div class="modal-top"><div><h2 id="accountPanelTitle">My Account</h2><div class="muted small">Your account information and services</div></div><button class="x" onclick="closeAccountPanel()">✕</button></div>
+  <div class="card" style="padding:13px;background:#0d1729"><div class="metric-label">Logged in account</div><strong id="accountPanelUsername">Login required</strong><div class="metric-label" style="margin-top:9px">Total balance</div><strong id="accountPanelBalance">0.00 USDT</strong></div>
+  <div class="account-grid">
+   <button class="account-action" onclick="accountAction('deposit')"><span>⬇️</span><strong>Deposit</strong><small>Deposit USDT into your account</small></button>
+   <button class="account-action" onclick="accountAction('withdraw')"><span>⬆️</span><strong>Withdraw</strong><small>Withdraw USDT</small></button>
+   <button class="account-action" onclick="accountAction('password')"><span>🔐</span><strong>Account Password</strong><small>Password change assistance</small></button>
+   <button class="account-action" onclick="accountAction('deposit-history')"><span>📥</span><strong>Deposit History</strong><small>Deposit records</small></button>
+   <button class="account-action" onclick="accountAction('withdraw-history')"><span>📤</span><strong>Withdraw History</strong><small>Withdrawal records</small></button>
+   <button class="account-action" onclick="accountAction('all-history')"><span>🧾</span><strong>All History</strong><small>Deposit, withdrawal, and trade history</small></button>
+   <button class="account-action" onclick="accountAction('trade-history')"><span>📊</span><strong>Trade History</strong><small>Buy and sell records</small></button>
+   <button class="account-action support-account-action" onclick="accountAction('customer-support')"><span class="support-account-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 4.3 18.6 19c-.2 1-1 1.2-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.6.6-1.2.6l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6 12.8l-4.8-1.5c-1-.3-1-1 .2-1.5L20 3.1c.9-.3 1.9.2 1.7 1.2Z"/></svg></span><span class="support-account-copy"><strong>Customer Service</strong><small>24/7 Telegram support · @treasury9</small></span></button>
+  </div>
+  <div id="accountHistoryPanel" class="account-history hidden" aria-live="polite"></div>
+ </section>
+</div>
+
+<div id="historyPage" aria-hidden="true">
+ <section class="history-shell">
+  <header class="history-top">
+   <button class="history-back" type="button" onclick="closeHistoryPage()">← Back</button>
+   <div class="history-heading"><h1 id="historyPageTitle">Account History</h1><p>Secure transaction records · Treasury account</p></div>
+   <div style="font-size:24px;color:#67dfbd">▤</div>
+  </header>
+  <div class="history-summary">
+   <div class="history-stat"><span>Deposit Records</span><b id="historyDepositCount">—</b></div>
+   <div class="history-stat"><span>Withdraw Records</span><b id="historyWithdrawCount">—</b></div>
+   <div class="history-stat"><span>Current Balance</span><b id="historyCurrentBalance">—</b></div>
+  </div>
+  <div id="historyPageContent" class="history-list" aria-live="polite"><div class="loading">Loading secure account history…</div></div>
+ </section>
+</div>
+
+<div id="transactionSuccessPage" aria-live="polite" aria-modal="true" role="dialog">
+ <section class="success-shell">
+  <div class="success-brand"><span class="success-brand-mark">T</span><span id="successBrandTitle">TREASURY</span></div>
+  <div class="success-icon" aria-hidden="true">✓</div>
+  <h1 class="success-title" id="successPageTitle">DEPOSIT REQUEST SUCCESS</h1>
+  <p class="success-subtitle" id="successPageSubtitle">Your request has been received successfully.</p>
+  <div class="success-status"><span class="success-status-dot"></span><span id="successPageStatus">PENDING REVIEW</span></div>
+  <div class="success-details">
+   <div class="success-detail-row"><span class="success-detail-label">ORDER NUMBER</span><span class="success-detail-value" id="successOrderValue">—</span></div>
+   <div class="success-detail-row"><span class="success-detail-label">AMOUNT</span><span class="success-detail-value amount" id="successDetailAmount">0.00 USDT</span></div>
+   <div class="success-detail-row"><span class="success-detail-label" id="successReferenceLabel">TRANSACTION HASH</span><span class="success-detail-value" id="successReferenceValue">—</span></div>
+  </div>
+  <p class="success-note" id="successPageNote">Your request is awaiting admin review.</p>
+  <button type="button" class="success-home" onclick="closeTransactionSuccessPage()">BACK TO TREASURY</button>
+  <div class="success-order">PLEASE KEEP YOUR ORDER NUMBER FOR REFERENCE</div>
+ </section>
+</div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
